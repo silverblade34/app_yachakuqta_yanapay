@@ -1,5 +1,6 @@
 import 'package:app_yachakuqta_yanapay/app/controllers/splash_controller.dart';
 import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -34,26 +35,47 @@ class SplashPage extends GetView<SplashController> {
                 ),
               ],
             ),
-            const Expanded(
-              child: Center(
-                child: Text(
-                  "Yachacuqta \n Yanapay",
-                  style: TextStyle(
-                    fontFamily: "Jersey25",
-                    fontSize: 55,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.3,
-                    color: SECONDARY
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  DefaultTextStyle(
+                    style: const TextStyle(
+                      fontFamily: "Jersey25",
+                      fontSize: 55,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.3,
+                      color: SECONDARY,
+                    ),
+                    child: AnimatedTextKit(
+                      animatedTexts: [
+                        WavyAnimatedText(
+                          "Yachacuqta",
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                      pause: const Duration(milliseconds: 3000),
+                      isRepeatingAnimation: true,
+                    ),
                   ),
-                  textAlign: TextAlign.center,
-                ),
+                  const Text(
+                    "Yanapay",
+                    style: TextStyle(
+                      fontFamily: "Jersey25",
+                      fontSize: 55,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.3,
+                      color: SECONDARY,
+                    ),
+                  ),
+                ],
               ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  width: 200,
+                  width: 230,
                   height: 250,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
