@@ -12,10 +12,10 @@ const double P2 = 15;
 
 const Color WHITE = Color(0xFFFFFFFF);
 const Color PRIMARY = Color(0xFFD98A29);
-const Color SECONDARY = Color.fromARGB(255, 194, 16, 16);
+const Color PRIMARY_LIGHT = Color.fromARGB(255, 248, 171, 76);
 const Color TERTIARY = Color(0xFFA2A629);
 const Color OTHER = Color(0xFFD93DA2);
-const Color BACKGROUND_LIGHT_CREAM = Color.fromARGB(249, 255, 253, 244);
+const Color BACKGROUND_LIGHT_CREAM = Color.fromARGB(251, 240, 232, 208);
 
 const Color GREY_HARD = Color.fromARGB(255, 47, 55, 71);
 const Color GREY_LIGHT = Color.fromARGB(255, 100, 100, 100);

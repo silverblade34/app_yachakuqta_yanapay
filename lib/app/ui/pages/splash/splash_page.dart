@@ -3,12 +3,17 @@ import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:async';
 
 class SplashPage extends GetView<SplashController> {
   const SplashPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Timer(const Duration(seconds: 4), () {
+      // Redirigir a la página de login
+      Get.offAllNamed('/login');
+    });
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
@@ -45,12 +50,12 @@ class SplashPage extends GetView<SplashController> {
                       fontSize: 55,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.3,
-                      color: SECONDARY,
+                      color: TERTIARY,
                     ),
                     child: AnimatedTextKit(
                       animatedTexts: [
                         WavyAnimatedText(
-                          "Yachacuqta",
+                          "Yanapay",
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -59,13 +64,13 @@ class SplashPage extends GetView<SplashController> {
                     ),
                   ),
                   const Text(
-                    "Yanapay",
+                    "Yachacuyta",
                     style: TextStyle(
                       fontFamily: "Jersey25",
                       fontSize: 55,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.3,
-                      color: SECONDARY,
+                      color: TERTIARY,
                     ),
                   ),
                 ],
