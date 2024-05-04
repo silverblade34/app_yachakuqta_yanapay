@@ -16,82 +16,77 @@ class LoginPage extends GetView<LoginController> {
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
-          child: SizedBox(
-            height: screenHeight,
-            child: Center(
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+          child: Container(
+            margin: EdgeInsets.only(top: screenHeight - 750),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/logo/icono_llama.png',
+                  width: 200,
+                ),
+                const Text(
+                  "Bienvenido a Yanapay Yachacuyta!",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: GREY_HARD,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                //// USER INPUT
+                TextFieldWidget(
+                  controller: controller.username,
+                  text: "Usuario",
+                  icon: Icons.person,
+                  obscure: false,
+                  textInputType: TextInputType.text,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                //// PASSWORD INPUT
+                TextFieldPass(
+                  controller: controller.password,
+                  obs: controller.obscurePass,
+                  title: "Contraseña",
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                ButtonIconColumn(
+                  onClick: () {
+                    controller.validateCredentials();
+                  },
+                  description: 'INGRESAR',
+                  color: TERTIARY,
+                  paddingVertical: 15,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Column(
                   children: [
-                    Image.asset(
-                      'assets/logo/logo_math2.png',
-                      width: 300,
-                    ),
-                    const Text(
-                      "Bienvenido a Yanapay Yachacuyta!",
+                    Text(
+                      "Yachacuyta",
                       style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w700,
                         color: GREY_HARD,
                       ),
-                      textAlign: TextAlign.center,
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    //// USER INPUT
-                    TextFieldWidget(
-                      controller: controller.username,
-                      text: "Usuario",
-                      icon: Icons.person,
-                      obscure: false,
-                      textInputType: TextInputType.text,
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    //// PASSWORD INPUT
-                    TextFieldPass(
-                      controller: controller.password,
-                      obs: controller.obscurePass,
-                      title: "Contraseña",
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    ButtonIconColumn(
-                      onClick: () {
-                        controller.validateCredentials();
-                      },
-                      description: 'INGRESAR',
-                      color: TERTIARY,
-                      paddingVertical: 15,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Column(
-                      children: [
-                        Text(
-                          "Yachacuyta",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: GREY_HARD,
-                          ),
-                        ),
-                        Text(
-                          "version 1.0",
-                          style: TextStyle(
-                            color: GREY_HARD,
-                          ),
-                        )
-                      ],
-                    ),
+                    Text(
+                      "version 1.0",
+                      style: TextStyle(
+                        color: GREY_HARD,
+                      ),
+                    )
                   ],
                 ),
-              ),
+              ],
             ),
           ),
         ),

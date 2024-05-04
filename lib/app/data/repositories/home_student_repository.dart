@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:app_yachakuqta_yanapay/app/data/dtos/home_student/list_courses_dto.dart';
 import 'package:app_yachakuqta_yanapay/app/data/providers/home_student_provider.dart';
 
@@ -11,6 +13,7 @@ class HomeStudentRepository {
     } else if (response.body["status"] == false) {
       throw Exception(response.body["message"]);
     }
+    print(jsonEncode(response.body));
     final body = response.body;
     ListCoursesDto data = ListCoursesDto.fromJson(body);
     return data;

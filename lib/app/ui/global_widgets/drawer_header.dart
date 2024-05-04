@@ -22,11 +22,11 @@ class DrawerHeaderWidget extends StatelessWidget {
             height: 10,
           ),
           Image.asset(
-            'assets/images/icon_matematicas.png',
-            width: 50,
+            'assets/logo/icono_llama.png',
+            width: 70,
           ),
           const SizedBox(
-            height: 10,
+            height: 5,
           ),
           Text(
             username,

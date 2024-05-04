@@ -16,9 +16,9 @@ class HomeStudentProvider extends GetConnect {
         'Authorization': 'Bearer $token',
         'Content-Type': 'application/json',
       };
-      final response =
-          await post('$url$versionService$methodFindAllCourses', headers)
-              .timeout(const Duration(milliseconds: 25000));
+      final response = await get('$url$versionService$methodFindAllCourses',
+              headers: headers)
+          .timeout(const Duration(milliseconds: 25000));
       return response;
     } catch (e) {
       throw Exception("Error de conexión al servidor");
