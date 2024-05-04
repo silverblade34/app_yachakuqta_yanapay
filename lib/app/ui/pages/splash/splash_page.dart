@@ -18,9 +18,9 @@ class SplashPage extends GetView<SplashController> {
       extendBody: true,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: BACKGROUND_LIGHT_CREAM,
+        backgroundColor: WHITE,
       ),
-      backgroundColor: BACKGROUND_LIGHT_CREAM,
+      backgroundColor: WHITE,
       body: SafeArea(
         child: Column(
           children: [
