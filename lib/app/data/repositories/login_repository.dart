@@ -6,11 +6,8 @@ class LoginRepository {
 
   Future<AuthLoginDto> authLogin(String username, String password) async {
     final response = await api.authLogin(username, password);
-
     if (response.body == null) {
       throw Exception("No se recibieron datos en la respuesta");
-    } else if (response.statusCode == 400) {
-      throw Exception("Error desconocido");
     } else if (response.body["status"] == false) {
       throw Exception(response.body["message"]);
     }
