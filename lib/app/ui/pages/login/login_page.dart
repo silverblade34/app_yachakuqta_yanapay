@@ -17,7 +17,7 @@ class LoginPage extends GetView<LoginController> {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
-            margin: EdgeInsets.only(top: screenHeight - 750),
+            margin: EdgeInsets.only(top: screenHeight * 0.13),
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

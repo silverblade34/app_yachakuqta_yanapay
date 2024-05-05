@@ -1,7 +1,9 @@
-import 'package:app_yachakuqta_yanapay/app/data/dtos/home_student/list_courses_dto.dart';
+import 'package:app_yachakuqta_yanapay/app/data/dtos/home_student/course_dto.dart';
+import 'package:app_yachakuqta_yanapay/app/utils/global_utils.dart';
 import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
 import 'package:flutter/material.dart';
 
+// ignore: non_constant_identifier_names
 Column CardCourse({required Course item}) {
   return Column(
     children: [
@@ -12,10 +14,10 @@ Column CardCourse({required Course item}) {
           color: WHITE,
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.2), // Color de la sombra
-              spreadRadius: 1, // Extensión de la sombra
-              blurRadius: 2, // Difuminado de la sombra
-              offset: const Offset(0, 1), // Desplazamiento de la sombra
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 2,
+              offset: const Offset(0, 1),
             ),
           ],
         ),
@@ -24,32 +26,39 @@ Column CardCourse({required Course item}) {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Image.asset(
-                  'assets/images/icon_matematicas.png',
-                  width: 50,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
                   children: [
-                    Text(
-                      item.title,
-                      style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: PRIMARY),
+                    Image.network(
+                    item.image != "" ?'$url$versionService$methodGetImageCourse${item.image}': 'https://cdn-icons-png.flaticon.com/512/5965/5965835.png',
+                      width: 50,
                     ),
                     const SizedBox(
-                      height: 5,
+                      width: 15,
                     ),
-                    Text(
-                      item.createdAt.toString(),
-                      style: const TextStyle(color: GREY_LIGHT),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.title,
+                          style: const TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                              color: PRIMARY),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "${item.totalSyllabus} Unidades",
+                          style: const TextStyle(color: GREY_LIGHT),
+                        ),
+                      ],
                     ),
                   ],
                 ),
                 InkWell(
                   child: Container(
-                    padding: const EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
                       color: TERTIARY,
                       borderRadius: BorderRadius.circular(5),
@@ -57,6 +66,7 @@ Column CardCourse({required Course item}) {
                     child: const Icon(
                       Icons.arrow_forward_ios_outlined,
                       color: WHITE,
+                      size: 17,
                     ),
                   ),
                   onTap: () async {

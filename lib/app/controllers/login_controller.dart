@@ -1,3 +1,4 @@
+import 'package:app_yachakuqta_yanapay/app/controllers/main_controller.dart';
 import 'package:app_yachakuqta_yanapay/app/data/models/menu_options_model.dart';
 import 'package:app_yachakuqta_yanapay/app/data/repositories/login_repository.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,15 @@ class LoginController extends GetxController {
   final TextEditingController password = TextEditingController();
   RxBool obscurePass = RxBool(true);
   LoginRepository loginRepository = LoginRepository();
+  late MainController mainController;
   final box = GetStorage();
+
+  @override
+  void onInit() async {
+    super.onInit();
+    Get.lazyPut(() => MainController());
+    mainController = Get.find<MainController>();
+  }
 
   validateCredentials() async {
     if (username.text.isEmpty && password.text.isEmpty) {
@@ -26,6 +35,10 @@ class LoginController extends GetxController {
             await loginRepository.authLogin(username.text, password.text);
         String role = validate.data.role;
         constructMenu(role);
+
+        String authToken = mainController.generateToken(validate.data.username, role);
+
+        box.write('authTokenMobile', authToken);
         box.write('name', validate.data.name);
         box.write('role', role);
         box.write('token', validate.data.token);

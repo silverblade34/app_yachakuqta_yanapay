@@ -10,7 +10,7 @@ class HomeStudentProvider extends GetConnect {
     token = box.read("token");
   }
 
-  Future<Response> findAllCourses() async {
+  Future<Response> findAllCoursesToSyllabus() async {
     try {
       Map<String, String> headers = {
         'Authorization': 'Bearer $token',
