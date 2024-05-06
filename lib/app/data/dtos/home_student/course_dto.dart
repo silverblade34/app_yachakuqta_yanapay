@@ -1,4 +1,3 @@
-
 import 'package:app_yachakuqta_yanapay/app/data/dtos/home_student/syllabus_dto.dart';
 
 class Course {
@@ -6,7 +5,8 @@ class Course {
   String title;
   DateTime createdAt;
   int v;
-  String image;
+  String imageIcon;
+  String imageBackground;
   List<Syllabus> syllabuses;
   int totalSyllabus;
 
@@ -15,7 +15,8 @@ class Course {
     required this.title,
     required this.createdAt,
     required this.v,
-    required this.image,
+    required this.imageIcon,
+    required this.imageBackground,
     required this.syllabuses,
     required this.totalSyllabus,
   });
@@ -25,7 +26,8 @@ class Course {
         title: json["title"],
         createdAt: DateTime.parse(json["createdAt"]),
         v: json["__v"],
-        image: json["image"],
+        imageIcon: json["imageIcon"] ?? "",
+        imageBackground: json["imageBackground"] ?? "",
         syllabuses: List<Syllabus>.from(
             json["syllabuses"].map((x) => Syllabus.fromJson(x))),
         totalSyllabus: json["totalSyllabus"],
@@ -36,7 +38,8 @@ class Course {
         "title": title,
         "createdAt": createdAt.toIso8601String(),
         "__v": v,
-        "image": image,
+        "imageIcon": imageIcon,
+        "imageBackground": imageBackground,
         "syllabuses": List<dynamic>.from(syllabuses.map((x) => x.toJson())),
         "totalSyllabus": totalSyllabus,
       };

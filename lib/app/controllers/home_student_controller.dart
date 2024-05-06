@@ -28,4 +28,8 @@ class HomeStudentController extends GetxController {
       }
     }
   }
+
+  getToCourseDetail(Course item) {
+    Get.toNamed("/course_student", arguments: item);
+  }
 }

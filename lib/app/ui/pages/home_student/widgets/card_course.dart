@@ -1,10 +1,12 @@
+import 'package:app_yachakuqta_yanapay/app/controllers/home_student_controller.dart';
 import 'package:app_yachakuqta_yanapay/app/data/dtos/home_student/course_dto.dart';
 import 'package:app_yachakuqta_yanapay/app/utils/global_utils.dart';
 import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
 import 'package:flutter/material.dart';
 
 // ignore: non_constant_identifier_names
-Column CardCourse({required Course item}) {
+Column CardCourse(
+    {required Course item, required HomeStudentController homeStudentCL}) {
   return Column(
     children: [
       Container(
@@ -29,7 +31,9 @@ Column CardCourse({required Course item}) {
                 Row(
                   children: [
                     Image.network(
-                    item.image != "" ?'$url$versionService$methodGetImageCourse${item.image}': 'https://cdn-icons-png.flaticon.com/512/5965/5965835.png',
+                      item.imageIcon != ""
+                          ? '$url$versionService$methodGetImageCourse${item.imageIcon}'
+                          : 'https://cdn-icons-png.flaticon.com/512/5965/5965835.png',
                       width: 50,
                     ),
                     const SizedBox(
@@ -70,7 +74,7 @@ Column CardCourse({required Course item}) {
                     ),
                   ),
                   onTap: () async {
-                    print("GO TO DETALLES");
+                    homeStudentCL.getToCourseDetail(item);
                   },
                 ),
               ],

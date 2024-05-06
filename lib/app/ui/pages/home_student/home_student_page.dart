@@ -1,6 +1,5 @@
 import 'package:app_yachakuqta_yanapay/app/controllers/home_student_controller.dart';
 import 'package:app_yachakuqta_yanapay/app/data/dtos/home_student/course_dto.dart';
-import 'package:app_yachakuqta_yanapay/app/data/dtos/home_student/list_courses_dto.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/global_widgets/navigation_drawer.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/home_student/widgets/card_course.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +35,7 @@ class HomeStudentPage extends GetView<HomeStudentController> {
                   Course item = controller.dataCourses[index];
                   return CardCourse(
                     item: item,
+                    homeStudentCL: controller,
                   );
                 },
               ),
