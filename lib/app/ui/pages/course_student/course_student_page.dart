@@ -4,6 +4,7 @@ import 'package:app_yachakuqta_yanapay/app/ui/pages/course_student/widgets/card_
 import 'package:app_yachakuqta_yanapay/app/utils/global_utils.dart';
 import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class CourseStudentPage extends GetView<CourseStudentController> {
@@ -28,7 +29,7 @@ class CourseStudentPage extends GetView<CourseStudentController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: screenHeight * 0.1,
+                height: screenHeight * 0.22,
                 width: screenWidth - 20,
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
@@ -77,15 +78,20 @@ class CourseStudentPage extends GetView<CourseStudentController> {
                   color: GREY_LIGHT,
                 ),
               ),
-              Container(
-                height: screenHeight - (screenHeight * 0.3),
-                padding: const EdgeInsets.all(15),
+                const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: screenHeight - (screenHeight * 0.40),
                 child: ListView.builder(
                   itemCount: controller.courseData.syllabuses.length,
                   itemBuilder: (context, index) {
                     Syllabus item = controller.courseData.syllabuses[index];
-                    return CardSyllabus(
-                        item: item, courseStudentCL: controller);
+                    return Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 7),
+                      child: CardSyllabus(
+                          item: item, courseStudentCL: controller),
+                    );
                   },
                 ),
               ),
