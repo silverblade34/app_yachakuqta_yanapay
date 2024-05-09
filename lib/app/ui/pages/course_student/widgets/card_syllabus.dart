@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 // ignore: non_constant_identifier_names
 Container CardSyllabus(
     {required Syllabus item,
+    required int index,
     required CourseStudentController courseStudentCL}) {
   return Container(
     padding: const EdgeInsets.all(10),
@@ -45,7 +46,19 @@ Container CardSyllabus(
               width: 10,
             ),
             Expanded(
-              child: Text(item.title),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Unidad ${index.toString()}",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: GREY_LIGHT,
+                    ),
+                  ),
+                  Text(item.title),
+                ],
+              ),
             )
           ],
         ),

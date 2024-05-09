@@ -15,18 +15,18 @@ class CourseStudentPage extends GetView<CourseStudentController> {
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-            title: const Text(
-              "EDITOR TEXTO",
-              style: TextStyle(fontSize: 17),
-            ),
-            elevation: 4,
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {
-                Get.back();
-              },
-            ),
-          ),
+        title: const Text(
+          "EDITOR TEXTO",
+          style: TextStyle(fontSize: 17),
+        ),
+        elevation: 4,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Get.back();
+          },
+        ),
+      ),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(10),
@@ -34,7 +34,7 @@ class CourseStudentPage extends GetView<CourseStudentController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: screenHeight * 0.22,
+                height: screenHeight * 0.2,
                 width: screenWidth - 20,
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
@@ -83,11 +83,11 @@ class CourseStudentPage extends GetView<CourseStudentController> {
                   color: GREY_LIGHT,
                 ),
               ),
-                const SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               SizedBox(
-                height: screenHeight - (screenHeight * 0.40),
+                height: screenHeight - (screenHeight * 0.38),
                 child: ListView.builder(
                   itemCount: controller.courseData.syllabuses.length,
                   itemBuilder: (context, index) {
@@ -95,7 +95,9 @@ class CourseStudentPage extends GetView<CourseStudentController> {
                     return Container(
                       padding: const EdgeInsets.symmetric(horizontal: 7),
                       child: CardSyllabus(
-                          item: item, courseStudentCL: controller),
+                          item: item,
+                          index: index + 1,
+                          courseStudentCL: controller),
                     );
                   },
                 ),
