@@ -2,7 +2,6 @@ import 'package:app_yachakuqta_yanapay/app/controllers/course_student_controller
 import 'package:app_yachakuqta_yanapay/app/data/dtos/home_student/syllabus_dto.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/course_student/widgets/card_syllabus.dart';
 import 'package:app_yachakuqta_yanapay/app/utils/global_utils.dart';
-import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -43,7 +42,7 @@ class CourseStudentPage extends GetView<CourseStudentController> {
                   image: DecorationImage(
                     image: NetworkImage(controller.courseData.imageBackground !=
                             ""
-                        ? '$url$versionService$methodGetImageCourse${controller.courseData.imageBackground}'
+                        ? '$urlImages$versionService$methodGetImageCourse${controller.courseData.imageBackground}'
                         : "https://img.freepik.com/vector-gratis/ilustracion-libro-lectura_114360-8532.jpg?t=st=1715006993~exp=1715010593~hmac=3176fad2eeb7e1181edf3cdebe585ad4142921f578de4ed3942c1bf7422e2fc3&w=740"),
                     fit: BoxFit.cover,
                     colorFilter: ColorFilter.mode(
@@ -75,19 +74,8 @@ class CourseStudentPage extends GetView<CourseStudentController> {
               const SizedBox(
                 height: 15,
               ),
-              const Text(
-                "Unidades",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: GREY_LIGHT,
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
               SizedBox(
-                height: screenHeight - (screenHeight * 0.38),
+                height: screenHeight - (screenHeight * 0.35),
                 child: ListView.builder(
                   itemCount: controller.courseData.syllabuses.length,
                   itemBuilder: (context, index) {

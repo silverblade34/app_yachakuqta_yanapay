@@ -32,7 +32,7 @@ Column CardCourse(
                   children: [
                     Image.network(
                       item.imageIcon != ""
-                          ? '$url$versionService$methodGetImageCourse${item.imageIcon}'
+                          ? '$urlImages$versionService$methodGetImageCourse${item.imageIcon}'
                           : 'https://cdn-icons-png.flaticon.com/512/5965/5965835.png',
                       width: 50,
                     ),

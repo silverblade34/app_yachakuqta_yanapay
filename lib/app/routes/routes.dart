@@ -8,5 +8,6 @@ abstract class Routes {
   static const HOME_TEACHER = '/home_teacher';
   static const HOME_ADMINISTRATOR = '/home_administrator';
   static const COURSE_STUDENT = '/course_student';
+  static const SYLLABUS_STUDENT = '/syllabus_student';
   static const EDITOR_SYLLABUS = '/editor_syllabus';
 }
