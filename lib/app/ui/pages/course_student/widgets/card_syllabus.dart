@@ -8,7 +8,7 @@ Container CardSyllabus(
     {required Syllabus item,
     required CourseStudentController courseStudentCL}) {
   return Container(
-    padding: const EdgeInsets.all(8),
+    padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(5),
       color: WHITE,
@@ -26,9 +26,23 @@ Container CardSyllabus(
       children: [
         Row(
           children: [
-            Image.asset(
-              'assets/images/icono_item_curso.png',
-              width: 50,
+            const SizedBox(
+              width: 5,
+            ),
+            Container(
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: PRIMARY,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Icon(
+                Icons.category_outlined,
+                color: WHITE,
+                size: 25,
+              ),
+            ),
+            const SizedBox(
+              width: 10,
             ),
             Expanded(
               child: Text(item.title),

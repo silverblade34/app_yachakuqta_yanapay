@@ -4,7 +4,6 @@ import 'package:app_yachakuqta_yanapay/app/ui/pages/course_student/widgets/card_
 import 'package:app_yachakuqta_yanapay/app/utils/global_utils.dart';
 import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class CourseStudentPage extends GetView<CourseStudentController> {
@@ -16,12 +15,18 @@ class CourseStudentPage extends GetView<CourseStudentController> {
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "DETALLE DE CURSO",
-          style: TextStyle(fontSize: 17),
-        ),
-        elevation: 4,
-      ),
+            title: const Text(
+              "EDITOR TEXTO",
+              style: TextStyle(fontSize: 17),
+            ),
+            elevation: 4,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Get.back();
+              },
+            ),
+          ),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(10),

@@ -1,10 +1,12 @@
 import 'package:app_yachakuqta_yanapay/app/bindings/course_student_binding.dart';
+import 'package:app_yachakuqta_yanapay/app/bindings/editor_syllabus_binding.dart';
 import 'package:app_yachakuqta_yanapay/app/bindings/home_administrator_binding.dart';
 import 'package:app_yachakuqta_yanapay/app/bindings/home_student_binding.dart';
 import 'package:app_yachakuqta_yanapay/app/bindings/home_teacher_binding.dart';
 import 'package:app_yachakuqta_yanapay/app/bindings/login_binding.dart';
 import 'package:app_yachakuqta_yanapay/app/middlewares/global_middleware.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/course_student/course_student_page.dart';
+import 'package:app_yachakuqta_yanapay/app/ui/pages/editor_syllabus/editor_syllabus_page.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/home_administrator/home_administrator_page.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/home_student/home_student_page.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/home_teacher/home_teacher_page.dart';
@@ -49,6 +51,11 @@ abstract class AppPages {
       name: Routes.COURSE_STUDENT,
       page: () => const CourseStudentPage(),
       binding: CourseStudentBinding(),
+    ),
+    GetPage(
+      name: Routes.EDITOR_SYLLABUS,
+      page: () => const EditorSyllabusPage(),
+      binding: EditorSyllabusBinding(),
     )
   ];
 }
