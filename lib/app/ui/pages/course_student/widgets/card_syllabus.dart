@@ -2,7 +2,6 @@ import 'package:app_yachakuqta_yanapay/app/controllers/course_student_controller
 import 'package:app_yachakuqta_yanapay/app/data/dtos/home_student/syllabus_dto.dart';
 import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 // ignore: non_constant_identifier_names
 Column CardSyllabus(
@@ -69,7 +68,7 @@ Column CardSyllabus(
           ),
         ),
         onTap: () {
-          Get.toNamed("/syllabus_student");
+          courseStudentCL.goToSyllabusStudent(item);
         },
       ),
       const SizedBox(

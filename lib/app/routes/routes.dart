@@ -1,7 +1,7 @@
 part of './pages.dart';
 
 abstract class Routes {
-  static const INITIAL = '/';
+  static const INITIAL = '/splash';
   static const SPLASH = '/splash';
   static const LOGIN = '/login';
   static const HOME_STUDENT = '/home_student';

@@ -15,7 +15,7 @@ class CourseStudentPage extends GetView<CourseStudentController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "EDITOR TEXTO",
+          "DETALLE CURSO",
           style: TextStyle(fontSize: 17),
         ),
         elevation: 4,

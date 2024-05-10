@@ -5,3 +5,4 @@ const String versionService = 'api/v1/';
 const String methodLogin = 'auth/login';
 const String methodFindAllCourses = 'courses/findAllToSyllabus';
 const String methodGetImageCourse = 'courses/getImage/';
+const String methodFindAllSyllabusBlocks = 'syllabus-block/findAllToSyllabus/';
