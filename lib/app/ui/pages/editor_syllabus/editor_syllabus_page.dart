@@ -1,4 +1,5 @@
 import 'package:app_yachakuqta_yanapay/app/controllers/editor_syllabus_controller.dart';
+import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +19,6 @@ class EditorSyllabusPage extends GetView<EditorSyllabusController> {
           IconButton(
             icon: const Icon(Icons.check),
             onPressed: () {
-              // Llama a la función para obtener el contenido del editor
               controller.obtenerContenidoEditor();
             },
           ),
@@ -31,6 +31,7 @@ class EditorSyllabusPage extends GetView<EditorSyllabusController> {
             QuillToolbar.simple(
               configurations: QuillSimpleToolbarConfigurations(
                 controller: controller.controllerQuill,
+                embedButtons: FlutterQuillEmbeds.toolbarButtons(),
                 sharedConfigurations: const QuillSharedConfigurations(
                   locale: Locale('es'),
                 ),
@@ -40,6 +41,7 @@ class EditorSyllabusPage extends GetView<EditorSyllabusController> {
               child: QuillEditor.basic(
                 configurations: QuillEditorConfigurations(
                   controller: controller.controllerQuill,
+                  embedBuilders: FlutterQuillEmbeds.editorBuilders(),
                   sharedConfigurations: const QuillSharedConfigurations(
                     locale: Locale('es'),
                   ),

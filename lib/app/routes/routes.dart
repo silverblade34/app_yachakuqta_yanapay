@@ -10,4 +10,5 @@ abstract class Routes {
   static const COURSE_STUDENT = '/course_student';
   static const SYLLABUS_STUDENT = '/syllabus_student';
   static const EDITOR_SYLLABUS = '/editor_syllabus';
+  static const BLOCKPAGE_STUDENT = '/blockpage_student';
 }

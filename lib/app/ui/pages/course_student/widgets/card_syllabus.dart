@@ -58,7 +58,12 @@ Column CardSyllabus(
                             color: GREY_LIGHT,
                           ),
                         ),
-                        Text(item.title),
+                        Text(
+                          item.title,
+                          style: const TextStyle(
+                            color: GREY_LIGHT,
+                          ),
+                        ),
                       ],
                     ),
                   )

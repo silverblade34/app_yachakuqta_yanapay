@@ -1,4 +1,6 @@
+import 'package:app_yachakuqta_yanapay/app/data/dtos/blockpage_student/blockpage_dto.dart';
 import 'package:app_yachakuqta_yanapay/app/data/dtos/syllabus_student/syllabus_blocks_dto.dart';
+import 'package:app_yachakuqta_yanapay/app/data/repositories/blockpage_student_repository.dart';
 import 'package:app_yachakuqta_yanapay/app/data/repositories/syllabus_student_repository.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -8,6 +10,7 @@ class SyllabusStudentController extends GetxController {
   RxList<DatumSyllabusBlock> dataSyllabusBlocks = RxList([]);
   SyllabusStudentRepository syllabusStudentRepository =
       SyllabusStudentRepository();
+  BlockPageStudentRepository blockPageStudentRepository = BlockPageStudentRepository();
 
   @override
   void onInit() async {
@@ -30,5 +33,21 @@ class SyllabusStudentController extends GetxController {
         EasyLoading.showInfo(error.toString());
       }
     }
+  }
+
+  goToBlockPage(String blockPageId) async {
+ try {
+      final validate = await blockPageStudentRepository.findOneBlockPage(blockPageId);
+     DataBlockPage dataBlockPage = validate.data;
+          Get.toNamed("/blockpage_student", arguments: dataBlockPage);
+    } catch (error) {
+      try {
+        String errorMessage = error.toString().split(":")[1].trim();
+        EasyLoading.showInfo(errorMessage);
+      } catch (e) {
+        EasyLoading.showInfo(error.toString());
+      }
+    }
+
   }
 }

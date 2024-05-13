@@ -58,12 +58,11 @@ Container ExpansionCard(
                   return ListTile(
                     title: Text(
                       item.title,
-                      style: TextStyle(fontSize: 15),
+                      style: const TextStyle(fontSize: 15),
                     ),
-                    trailing: Icon(Icons.play_arrow),
+                    trailing: const Icon(Icons.play_arrow),
                     onTap: () {
-                      print(item
-                          .id); // Imprime el ID del elemento al que se hizo tap
+                      controller.goToBlockPage(item.id);
                     },
                   );
                 },
@@ -79,7 +78,7 @@ Container ExpansionCard(
             TextButton(
               style: flatButtonStyle,
               onPressed: () {
-                cardX.currentState?.expand();
+                print("INICIAR");
               },
               child: const Column(
                 children: <Widget>[
@@ -94,7 +93,7 @@ Container ExpansionCard(
             TextButton(
               style: flatButtonStyle,
               onPressed: () {
-                cardX.currentState?.collapse();
+                print("VIDEOS");
               },
               child: const Column(
                 children: <Widget>[
@@ -109,7 +108,7 @@ Container ExpansionCard(
             TextButton(
               style: flatButtonStyle,
               onPressed: () {
-                cardX.currentState?.toggleExpansion();
+                print("RETOS");
               },
               child: const Column(
                 children: <Widget>[
