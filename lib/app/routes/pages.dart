@@ -1,6 +1,7 @@
 import 'package:app_yachakuqta_yanapay/app/bindings/blockpage_student_binding.dart';
 import 'package:app_yachakuqta_yanapay/app/bindings/course_student_binding.dart';
 import 'package:app_yachakuqta_yanapay/app/bindings/editor_syllabus_binding.dart';
+import 'package:app_yachakuqta_yanapay/app/bindings/editor_test_binding.dart';
 import 'package:app_yachakuqta_yanapay/app/bindings/home_administrator_binding.dart';
 import 'package:app_yachakuqta_yanapay/app/bindings/home_student_binding.dart';
 import 'package:app_yachakuqta_yanapay/app/bindings/home_teacher_binding.dart';
@@ -10,6 +11,7 @@ import 'package:app_yachakuqta_yanapay/app/middlewares/global_middleware.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/blockpage_student/blockpage_student_page.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/course_student/course_student_page.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/editor_syllabus/editor_syllabus_page.dart';
+import 'package:app_yachakuqta_yanapay/app/ui/pages/editor_test/editor_test_page.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/home_administrator/home_administrator_page.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/home_student/home_student_page.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/home_teacher/home_teacher_page.dart';
@@ -66,10 +68,15 @@ abstract class AppPages {
       page: () => const EditorSyllabusPage(),
       binding: EditorSyllabusBinding(),
     ),
-      GetPage(
+    GetPage(
       name: Routes.BLOCKPAGE_STUDENT,
       page: () => const BlockPageStudentPage(),
       binding: BlockPageStudentBinding(),
+    ),
+      GetPage(
+      name: Routes.EDITOR_TEST,
+      page: () => const EditorTestPage(),
+      binding: EditorTestBinding(),
     )
   ];
 }
