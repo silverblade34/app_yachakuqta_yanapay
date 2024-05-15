@@ -15,6 +15,18 @@ class EditorTestPage extends GetView<EditorTestController> {
           style: TextStyle(fontSize: 17),
         ),
         elevation: 4,
+        actions: [
+          Container(
+            margin: EdgeInsets.only(right: 10),
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+                color: WHITE, borderRadius: BorderRadius.circular(8)),
+            child: Icon(
+              Icons.check,
+              color: Colors.green,
+            ),
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -61,7 +73,7 @@ class EditorTestPage extends GetView<EditorTestController> {
                         itemCount: controller.dataBlocks.length,
                         itemBuilder: (context, index) {
                           var element = controller.dataBlocks[index];
-                          return controller.buildBlockWidget(element);
+                          return controller.buildBlockWidget(element, context);
                         },
                       );
               },
