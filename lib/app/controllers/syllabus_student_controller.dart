@@ -10,7 +10,8 @@ class SyllabusStudentController extends GetxController {
   RxList<DatumSyllabusBlock> dataSyllabusBlocks = RxList([]);
   SyllabusStudentRepository syllabusStudentRepository =
       SyllabusStudentRepository();
-  BlockPageStudentRepository blockPageStudentRepository = BlockPageStudentRepository();
+  BlockPageStudentRepository blockPageStudentRepository =
+      BlockPageStudentRepository();
 
   @override
   void onInit() async {
@@ -35,11 +36,16 @@ class SyllabusStudentController extends GetxController {
     }
   }
 
-  goToBlockPage(String blockPageId) async {
- try {
-      final validate = await blockPageStudentRepository.findOneBlockPage(blockPageId);
-     DataBlockPage dataBlockPage = validate.data;
-          Get.toNamed("/blockpage_student", arguments: dataBlockPage);
+  goToBlockPage(
+      String blockPageId, DatumSyllabusBlock dataSyllabusBlock) async {
+    try {
+      final validate =
+          await blockPageStudentRepository.findOneBlockPage(blockPageId);
+      DataBlockPage dataBlockPage = validate.data;
+      Get.toNamed("/blockpage_student", arguments: {
+        "dataBlockPage": dataBlockPage,
+        "dataSyllabusBlock": dataSyllabusBlock
+      });
     } catch (error) {
       try {
         String errorMessage = error.toString().split(":")[1].trim();
@@ -48,6 +54,5 @@ class SyllabusStudentController extends GetxController {
         EasyLoading.showInfo(error.toString());
       }
     }
-
   }
 }

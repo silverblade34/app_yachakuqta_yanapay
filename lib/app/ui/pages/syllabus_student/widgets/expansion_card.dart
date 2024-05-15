@@ -54,15 +54,15 @@ Container ExpansionCard(
               child: ListView.builder(
                 itemCount: blockPages.length,
                 itemBuilder: (context, index) {
-                  final item = blockPages[index];
+                  final itemBlockPage = blockPages[index];
                   return ListTile(
                     title: Text(
-                      item.title,
+                      itemBlockPage.title,
                       style: const TextStyle(fontSize: 15),
                     ),
                     trailing: const Icon(Icons.play_arrow),
                     onTap: () {
-                      controller.goToBlockPage(item.id);
+                      controller.goToBlockPage(itemBlockPage.id,item );
                     },
                   );
                 },

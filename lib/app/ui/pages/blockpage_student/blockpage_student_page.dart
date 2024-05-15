@@ -9,7 +9,11 @@ class BlockPageStudentPage extends GetView<BlockPageStudentController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('BLOCKPAGE'),
+        title: Text(
+          controller.dataSyllabusBlock.title,
+          style: const TextStyle(fontSize: 17),
+        ),
+        elevation: 4,
       ),
       body: SafeArea(
         child: Container(
