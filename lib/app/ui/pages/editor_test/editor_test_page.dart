@@ -17,11 +17,11 @@ class EditorTestPage extends GetView<EditorTestController> {
         elevation: 4,
         actions: [
           Container(
-            margin: EdgeInsets.only(right: 10),
-            padding: EdgeInsets.all(5),
+            margin: const EdgeInsets.only(right: 10),
+            padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
                 color: WHITE, borderRadius: BorderRadius.circular(8)),
-            child: Icon(
+            child: const Icon(
               Icons.check,
               color: Colors.green,
             ),
@@ -36,11 +36,16 @@ class EditorTestPage extends GetView<EditorTestController> {
               controller: controller.titleBlockPage,
               decoration: const InputDecoration(
                 hintText: 'Insertar título',
+                border: InputBorder.none,
               ),
               style: const TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 15.0,
               ),
+              textAlign: TextAlign.justify,
+              maxLines:
+                  null, // Permite que el campo de texto se expanda dinámicamente
+              textInputAction: TextInputAction.newline,
             ),
           ),
           Expanded(

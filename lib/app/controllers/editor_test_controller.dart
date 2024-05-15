@@ -1,5 +1,7 @@
 import 'package:app_yachakuqta_yanapay/app/data/models/block_editor_model.dart';
+import 'package:app_yachakuqta_yanapay/app/ui/global_widgets/button_icon_column.dart';
 import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,10 +30,12 @@ class EditorTestController extends GetxController {
                 leading: const Icon(Icons.text_fields),
                 title: const Text('Texto'),
                 onTap: () {
+                  int lengthOrder = dataBlocks.length;
                   dataBlocks.add(
                     BlockEditorModel(
                         type: "TEXTO",
                         content: "",
+                        order: lengthOrder + 1,
                         details: Details(height: 0, width: 0)),
                   );
                   Navigator.pop(context);
@@ -41,10 +45,12 @@ class EditorTestController extends GetxController {
                 leading: const Icon(Icons.text_increase),
                 title: const Text('Subtitulo'),
                 onTap: () {
+                  int lengthOrder = dataBlocks.length;
                   dataBlocks.add(
                     BlockEditorModel(
                         type: "SUBTITULO",
                         content: "",
+                        order: lengthOrder + 1,
                         details: Details(height: 0, width: 0)),
                   );
                   Navigator.pop(context);
@@ -54,10 +60,12 @@ class EditorTestController extends GetxController {
                 leading: const Icon(Icons.text_format),
                 title: const Text('Texto subrayado'),
                 onTap: () {
+                  int lengthOrder = dataBlocks.length;
                   dataBlocks.add(
                     BlockEditorModel(
                         type: "TEXTO_SUBRAYADO",
                         content: "",
+                        order: lengthOrder + 1,
                         details: Details(height: 0, width: 0)),
                   );
                   Navigator.pop(context);
@@ -67,10 +75,12 @@ class EditorTestController extends GetxController {
                 leading: const Icon(Icons.image),
                 title: const Text('Imagen'),
                 onTap: () {
+                  int lengthOrder = dataBlocks.length;
                   dataBlocks.add(
                     BlockEditorModel(
                         type: "IMAGEN",
                         content: "",
+                        order: lengthOrder + 1,
                         details: Details(height: 0, width: 0)),
                   );
                   Navigator.pop(context);
@@ -86,28 +96,31 @@ class EditorTestController extends GetxController {
   Widget buildBlockWidget(BlockEditorModel block, BuildContext context) {
     switch (block.type) {
       case 'TEXTO':
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        return const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.0),
           child: TextField(
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               hintText: 'Ingresar texto',
               border: InputBorder.none,
             ),
-            style: const TextStyle(fontSize: 14.0),
+            style: TextStyle(
+              fontSize: 14.0,
+            ),
+            textAlign: TextAlign.justify,
             maxLines:
                 null, // Permite que el campo de texto se expanda dinámicamente
             textInputAction: TextInputAction.newline,
           ),
         );
       case 'SUBTITULO':
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        return const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.0),
           child: TextField(
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               hintText: 'Ingresar subtítulo',
               border: InputBorder.none,
             ),
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14.0,
               fontWeight: FontWeight.bold,
               color: GREY_LIGHT,
@@ -118,14 +131,14 @@ class EditorTestController extends GetxController {
           ),
         );
       case 'TEXTO_SUBRAYADO':
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        return const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.0),
           child: TextField(
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               hintText: 'Ingresar texto subrayado',
               border: InputBorder.none,
             ),
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14.0,
               decoration: TextDecoration.underline,
             ),
@@ -155,56 +168,100 @@ class EditorTestController extends GetxController {
 
   void selectImageAndEditDimensions(BuildContext context) async {
     final picker = ImagePicker();
-    final pickedImage = await showModalBottomSheet<XFile>(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.all(16.0),
+    TextEditingController widthImage = TextEditingController();
+    TextEditingController heightImage = TextEditingController();
+    Get.dialog(
+      AlertDialog(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ), // Ajusta el radio de las esquinas
+        ),
+        backgroundColor: Colors.white,
+        title: const Text(
+          'Editar imagen',
+          style: TextStyle(fontSize: 18),
+        ),
+        content: SizedBox(
+          height: 330,
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ListTile(
                 leading: const Icon(Icons.camera_alt),
                 title: const Text('Tomar foto'),
                 onTap: () async {
-                  Navigator.pop(context,
-                      await picker.pickImage(source: ImageSource.camera));
+                  print("-----------------------1");
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.photo_library),
                 title: const Text('Abrir galería'),
                 onTap: () async {
-                  Navigator.pop(context,
-                      await picker.pickImage(source: ImageSource.gallery));
+                  print("-----------------------2");
                 },
               ),
-              const Divider(),
-              const Text('Editar dimensiones:'),
-              const SizedBox(height: 8),
+              const SizedBox(
+                height: 8,
+              ),
+              const Text(
+                "Dimensiones",
+                style: TextStyle(fontSize: 17),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      controller: widthImage,
                       decoration: const InputDecoration(labelText: 'Width'),
                       keyboardType: TextInputType.number,
+                      style: TextStyle(fontSize: 15),
                     ),
                   ),
                   SizedBox(
                     width: 100,
                     child: TextField(
+                      controller: heightImage,
                       decoration: const InputDecoration(labelText: 'Height'),
                       keyboardType: TextInputType.number,
+                      style: TextStyle(fontSize: 15),
                     ),
                   ),
                 ],
               ),
+              const SizedBox(
+                height: 15,
+              ),
+              ButtonIconColumn(
+                onClick: () {},
+                description: "Eliminar imagen",
+                color: PRIMARY,
+                icon: const Icon(
+                  Icons.delete_outline,
+                  color: WHITE,
+                ),
+              ),
+              const SizedBox(
+                height: 4,
+              ),
+              ButtonIconColumn(
+                onClick: () {},
+                description: "Guardar cambios",
+                color: PRIMARY,
+                icon: const Icon(
+                  Icons.check,
+                  color: WHITE,
+                ),
+              )
             ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

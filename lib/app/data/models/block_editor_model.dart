@@ -1,53 +1,23 @@
-// To parse this JSON data, do
-//
-//     final blockEditorModel = blockEditorModelFromJson(jsonString);
-
-import 'dart:convert';
-
-BlockEditorModel blockEditorModelFromJson(String str) => BlockEditorModel.fromJson(json.decode(str));
-
-String blockEditorModelToJson(BlockEditorModel data) => json.encode(data.toJson());
-
 class BlockEditorModel {
-    String content;
-    String type;
-    Details details;
+  String content;
+  String type;
+  Details details;
+  int order;
 
-    BlockEditorModel({
-        required this.content,
-        required this.type,
-        required this.details,
-    });
-
-    factory BlockEditorModel.fromJson(Map<String, dynamic> json) => BlockEditorModel(
-        content: json["content"],
-        type: json["type"],
-        details: Details.fromJson(json["details"]),
-    );
-
-    Map<String, dynamic> toJson() => {
-        "content": content,
-        "type": type,
-        "details": details.toJson(),
-    };
+  BlockEditorModel({
+    required this.content,
+    required this.type,
+    required this.details,
+    required this.order,
+  });
 }
 
 class Details {
-    int height;
-    int width;
+  int height;
+  int width;
 
-    Details({
-        required this.height,
-        required this.width,
-    });
-
-    factory Details.fromJson(Map<String, dynamic> json) => Details(
-        height: json["height"],
-        width: json["width"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "height": height,
-        "width": width,
-    };
+  Details({
+    required this.height,
+    required this.width,
+  });
 }
