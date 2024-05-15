@@ -13,8 +13,8 @@ class BlockEditorModel {
 }
 
 class Details {
-  int height;
-  int width;
+  double height;
+  double width;
 
   Details({
     required this.height,

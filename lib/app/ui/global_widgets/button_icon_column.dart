@@ -5,6 +5,7 @@ class ButtonIconColumn extends StatelessWidget {
   final VoidCallback onClick;
   final String description;
   final double? paddingVertical;
+  final FontWeight? fontWeightDescription;
   final Icon? icon;
   final Color color;
 
@@ -14,6 +15,7 @@ class ButtonIconColumn extends StatelessWidget {
     required this.description,
     this.icon,
     this.paddingVertical,
+    this.fontWeightDescription,
     required this.color,
   });
 
@@ -28,11 +30,12 @@ class ButtonIconColumn extends StatelessWidget {
         padding: MaterialStatePropertyAll(
           EdgeInsets.symmetric(
             vertical: paddingVertical ?? 11,
+            horizontal: 10
           ),
         ),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(8.0),
           ),
         ),
       ),
@@ -44,13 +47,13 @@ class ButtonIconColumn extends StatelessWidget {
             const SizedBox(),
           ],
           const SizedBox(
-            width: 10,
+            width: 5,
           ),
           Text(
             description,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14,
-              fontWeight: FontWeight.w600,
+              fontWeight: fontWeightDescription ?? FontWeight.w600,
               color: WHITE,
             ),
           ),
