@@ -11,7 +11,7 @@ void main() async {
      GetMaterialApp(
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.fadeIn,
-      initialRoute: Routes.INITIAL,
+      initialRoute: Routes.EDITOR_TEST,
       getPages: AppPages.pages,
       theme: appThemeData,
       builder: (context, widget) {
