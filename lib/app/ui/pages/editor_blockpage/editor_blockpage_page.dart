@@ -92,6 +92,7 @@ class EditorBlockPagePage extends GetView<EditorBlockPageController> {
               },
             ),
           ),
+          const SizedBox(height: 20,)
         ],
       ),
       floatingActionButton: FloatingActionButton(

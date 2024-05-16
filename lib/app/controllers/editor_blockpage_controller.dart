@@ -1,4 +1,5 @@
 import 'package:app_yachakuqta_yanapay/app/data/models/block_editor_model.dart';
+import 'package:app_yachakuqta_yanapay/app/data/repositories/editor_blockpage_repository.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/global_widgets/button_icon_column.dart';
 import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -13,6 +14,8 @@ class EditorBlockPageController extends GetxController {
   RxList<BlockEditorModel> dataBlocks = RxList([]);
   TextEditingController titleBlockPage = TextEditingController();
   final ImagePicker picker = ImagePicker();
+  EditorBlockPageRepository editorBlockPageRepository =
+      EditorBlockPageRepository();
 
   addBlock(BlockEditorModel block) {
     dataBlocks.add(block);
@@ -22,7 +25,21 @@ class EditorBlockPageController extends GetxController {
     dataBlocks[index] = updatedBlock;
   }
 
-  saveBlockPages() {}
+  saveBlockPages() async {
+    EasyLoading.show(status: 'Cargando...');
+    try {
+      final validate = await editorBlockPageRepository.createBlockPage(
+          1, titleBlockPage.text, "663d6ead0da9be8fe660e638", dataBlocks);
+      EasyLoading.showSuccess(validate["message"]);
+    } catch (error) {
+      try {
+        String errorMessage = error.toString().split(":")[1].trim();
+        EasyLoading.showInfo(errorMessage);
+      } catch (e) {
+        EasyLoading.showInfo(error.toString());
+      }
+    }
+  }
 
   showBlockSelectionModal(BuildContext context) {
     showModalBottomSheet(

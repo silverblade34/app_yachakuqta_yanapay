@@ -17,6 +17,17 @@ class BlockEditorModel {
     required this.details,
     required this.order,
   }) : controller = TextEditingController(text: content);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'order': order,
+      'content': type == "IMAGEN" ? content : controller.text,
+      'type': type,
+      'base64': base64,
+      'nameImage': nameImage,
+      'details': details.toJson(),
+    };
+  }
 }
 
 class Details {
@@ -27,4 +38,11 @@ class Details {
     required this.height,
     required this.width,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'height': height,
+      'width': width,
+    };
+  }
 }
