@@ -34,44 +34,104 @@ class BlockPageDto {
 
 class DataBlockPage {
     String id;
-    String title;
-    String content;
     int page;
-    List<dynamic> delta;
+    String title;
     String syllabusBlockId;
+    List<Block> blocks;
     DateTime createdAt;
     int v;
 
     DataBlockPage({
         required this.id,
-        required this.title,
-        required this.content,
         required this.page,
-        required this.delta,
+        required this.title,
         required this.syllabusBlockId,
+        required this.blocks,
         required this.createdAt,
         required this.v,
     });
 
     factory DataBlockPage.fromJson(Map<String, dynamic> json) => DataBlockPage(
         id: json["_id"],
-        title: json["title"],
-        content: json["content"],
         page: json["page"],
-        delta: List<dynamic>.from(json["delta"].map((x) => x)),
+        title: json["title"],
         syllabusBlockId: json["syllabusBlockId"],
+        blocks: List<Block>.from(json["blocks"].map((x) => Block.fromJson(x))),
         createdAt: DateTime.parse(json["createdAt"]),
         v: json["__v"],
     );
 
     Map<String, dynamic> toJson() => {
         "_id": id,
-        "title": title,
-        "content": content,
         "page": page,
-        "delta": List<dynamic>.from(delta.map((x) => x)),
+        "title": title,
         "syllabusBlockId": syllabusBlockId,
+        "blocks": List<dynamic>.from(blocks.map((x) => x.toJson())),
         "createdAt": createdAt.toIso8601String(),
         "__v": v,
+    };
+}
+
+class Block {
+    int order;
+    String content;
+    String type;
+    String base64;
+    String nameImage;
+    List<Detail> details;
+    String id;
+
+    Block({
+        required this.order,
+        required this.content,
+        required this.type,
+        required this.base64,
+        required this.nameImage,
+        required this.details,
+        required this.id,
+    });
+
+    factory Block.fromJson(Map<String, dynamic> json) => Block(
+        order: json["order"],
+        content: json["content"],
+        type: json["type"],
+        base64: json["base64"],
+        nameImage: json["nameImage"],
+        details: List<Detail>.from(json["details"].map((x) => Detail.fromJson(x))),
+        id: json["_id"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "order": order,
+        "content": content,
+        "type": type,
+        "base64": base64,
+        "nameImage": nameImage,
+        "details": List<dynamic>.from(details.map((x) => x.toJson())),
+        "_id": id,
+    };
+}
+
+class Detail {
+    int width;
+    int height;
+    String id;
+
+    Detail({
+        required this.width,
+        required this.height,
+        required this.id,
+    });
+
+    factory Detail.fromJson(Map<String, dynamic> json) => Detail(
+        width: json["width"],
+        height: json["height"],
+        id: json["_id"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "width": width,
+        "height": height,
+        "_id": id,
     };
 }

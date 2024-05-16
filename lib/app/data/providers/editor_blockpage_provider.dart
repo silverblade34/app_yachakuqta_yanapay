@@ -33,7 +33,6 @@ class EditorBlockPageProvider extends GetConnect {
           .timeout(const Duration(milliseconds: 25000));
       return response;
     } catch (e) {
-      print(e);
       throw Exception("Error de conexión al servidor");
     }
   }
