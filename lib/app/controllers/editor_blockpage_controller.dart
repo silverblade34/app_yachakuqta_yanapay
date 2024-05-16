@@ -1,4 +1,3 @@
-import 'package:app_yachakuqta_yanapay/app/data/dtos/blockpage_student/blockpage_dto.dart';
 import 'package:app_yachakuqta_yanapay/app/data/models/block_editor_model.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/global_widgets/button_icon_column.dart';
 import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
@@ -10,7 +9,7 @@ import 'package:get/get.dart';
 import 'dart:convert';
 import 'dart:io';
 
-class EditorTestController extends GetxController {
+class EditorBlockPageController extends GetxController {
   RxList<BlockEditorModel> dataBlocks = RxList([]);
   TextEditingController titleBlockPage = TextEditingController();
   final ImagePicker picker = ImagePicker();
@@ -22,6 +21,8 @@ class EditorTestController extends GetxController {
   updateBlock(int index, BlockEditorModel updatedBlock) {
     dataBlocks[index] = updatedBlock;
   }
+
+  saveBlockPages() {}
 
   showBlockSelectionModal(BuildContext context) {
     showModalBottomSheet(
@@ -42,6 +43,8 @@ class EditorTestController extends GetxController {
                         type: "TEXTO",
                         content: "",
                         order: lengthOrder + 1,
+                        nameImage: "",
+                        base64: "",
                         details: Details(height: 0, width: 0)),
                   );
                   Navigator.pop(context);
@@ -57,6 +60,8 @@ class EditorTestController extends GetxController {
                         type: "SUBTITULO",
                         content: "",
                         order: lengthOrder + 1,
+                        nameImage: "",
+                        base64: "",
                         details: Details(height: 0, width: 0)),
                   );
                   Navigator.pop(context);
@@ -72,6 +77,8 @@ class EditorTestController extends GetxController {
                         type: "TEXTO_SUBRAYADO",
                         content: "",
                         order: lengthOrder + 1,
+                        nameImage: "",
+                        base64: "",
                         details: Details(height: 0, width: 0)),
                   );
                   Navigator.pop(context);
@@ -87,6 +94,8 @@ class EditorTestController extends GetxController {
                         type: "IMAGEN",
                         content: "",
                         order: lengthOrder + 1,
+                        nameImage: "",
+                        base64: "",
                         details: Details(height: 150, width: 150)),
                   );
                   Navigator.pop(context);
@@ -102,14 +111,16 @@ class EditorTestController extends GetxController {
   Widget buildBlockWidget(BlockEditorModel block, BuildContext context) {
     switch (block.type) {
       case 'TEXTO':
-        return const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: TextField(
-            decoration: InputDecoration(
+            controller: block.controller,
+            decoration: const InputDecoration(
               hintText: 'Ingresar texto',
               border: InputBorder.none,
+              contentPadding: EdgeInsets.symmetric(vertical: 0),
             ),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14.0,
             ),
             textAlign: TextAlign.justify,
@@ -119,14 +130,16 @@ class EditorTestController extends GetxController {
           ),
         );
       case 'SUBTITULO':
-        return const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: TextField(
-            decoration: InputDecoration(
+            controller: block.controller,
+            decoration: const InputDecoration(
               hintText: 'Ingresar subtítulo',
               border: InputBorder.none,
+              contentPadding: EdgeInsets.symmetric(vertical: 0),
             ),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14.0,
               fontWeight: FontWeight.bold,
               color: GREY_LIGHT,
@@ -137,14 +150,16 @@ class EditorTestController extends GetxController {
           ),
         );
       case 'TEXTO_SUBRAYADO':
-        return const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: TextField(
-            decoration: InputDecoration(
+            controller: block.controller,
+            decoration: const InputDecoration(
               hintText: 'Ingresar texto subrayado',
               border: InputBorder.none,
+              contentPadding: EdgeInsets.symmetric(vertical: 0),
             ),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14.0,
               decoration: TextDecoration.underline,
             ),
@@ -172,7 +187,7 @@ class EditorTestController extends GetxController {
                     ).image,
                     width: block.details.width,
                     height: block.details.height,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
           ),
         );
@@ -182,19 +197,27 @@ class EditorTestController extends GetxController {
   }
 
   selectImageAndEditDimensions(BuildContext context, int orderBlock) async {
-    BlockEditorModel blockPage = dataBlocks.firstWhere(
+    // Crea una copia de la lista dataBlocks
+    List<BlockEditorModel> newDataBlocks = List.from(dataBlocks);
+
+    // Busca el elemento en la nueva lista
+    BlockEditorModel blockPage = newDataBlocks.firstWhere(
       (block) => block.order == orderBlock,
     );
-    TextEditingController nameImage = TextEditingController();
+
+    TextEditingController nameImage =
+        TextEditingController(text: blockPage.nameImage);
     TextEditingController widthImage =
         TextEditingController(text: blockPage.details.width.toString());
     TextEditingController heightImage =
         TextEditingController(text: blockPage.details.height.toString());
-    RxString imagePath = "".obs;
-    RxString imageBase64 = "".obs;
+    RxString imagePath = blockPage.content.obs;
+    RxString imageBase64 = blockPage.base64.obs;
 
     Get.dialog(
       AlertDialog(
+        insetPadding:
+            const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(10.0),
@@ -213,40 +236,46 @@ class EditorTestController extends GetxController {
             children: [
               Row(
                 children: [
-                  ButtonIconColumn(
-                    onClick: () async {
-                      Map<String, dynamic> dataImage = await tomarFoto();
-                      nameImage.text = dataImage["imageName"];
-                      imagePath.value = dataImage["imagePath"];
-                      imageBase64.value = dataImage["imageBase64"];
-                    },
-                    description: 'Tomar foto',
-                    color: TERTIARY,
-                    paddingVertical: 10,
-                    fontWeightDescription: FontWeight.normal,
-                    icon: const Icon(
-                      Icons.camera_alt,
-                      color: WHITE,
+                  Expanded(
+                    child: ButtonIconColumn(
+                      onClick: () async {
+                        Map<String, dynamic> dataImage = await takePhoto();
+                        nameImage.text = dataImage["imageName"];
+                        imagePath.value = dataImage["imagePath"];
+                        imageBase64.value = dataImage["imageBase64"];
+                      },
+                      description: 'Tomar foto',
+                      color: TERTIARY,
+                      paddingVertical: 10,
+                      fontWeightDescription: FontWeight.normal,
+                      icon: const Icon(
+                        Icons.camera_alt,
+                        color: WHITE,
+                        size: 16,
+                      ),
                     ),
                   ),
                   const SizedBox(
                     width: 5,
                   ),
-                  ButtonIconColumn(
-                    onClick: () async {
-                      Map<String, dynamic> dataImage =
-                          await abrirGaleria(context);
-                      nameImage.text = dataImage["imageName"];
-                      imagePath.value = dataImage["imagePath"];
-                      imageBase64.value = dataImage["imageBase64"];
-                    },
-                    description: 'Abrir galería',
-                    fontWeightDescription: FontWeight.normal,
-                    paddingVertical: 10,
-                    color: TERTIARY,
-                    icon: const Icon(
-                      Icons.photo_library,
-                      color: WHITE,
+                  Expanded(
+                    child: ButtonIconColumn(
+                      onClick: () async {
+                        Map<String, dynamic> dataImage =
+                            await openGallery(context);
+                        nameImage.text = dataImage["imageName"];
+                        imagePath.value = dataImage["imagePath"];
+                        imageBase64.value = dataImage["imageBase64"];
+                      },
+                      description: 'Abrir galería',
+                      fontWeightDescription: FontWeight.normal,
+                      paddingVertical: 10,
+                      color: TERTIARY,
+                      icon: const Icon(
+                        Icons.photo_library,
+                        color: WHITE,
+                        size: 16,
+                      ),
                     ),
                   )
                 ],
@@ -300,9 +329,12 @@ class EditorTestController extends GetxController {
                 height: 15,
               ),
               ButtonIconColumn(
-                onClick: () {},
+                onClick: () async {
+                  await showDialogDeleteBlock(blockPage.order);
+                },
                 description: "Eliminar imagen",
                 fontWeightDescription: FontWeight.normal,
+                paddingVertical: 10,
                 color: PRIMARY,
                 icon: const Icon(
                   Icons.delete_outline,
@@ -313,8 +345,27 @@ class EditorTestController extends GetxController {
                 height: 4,
               ),
               ButtonIconColumn(
-                onClick: () {},
+                onClick: () {
+                  blockPage.content = imagePath.value;
+                  blockPage.nameImage = nameImage.text;
+                  blockPage.base64 = imageBase64.value;
+                  blockPage.details.width =
+                      double.parse(widthImage.text.toString());
+                  blockPage.details.height =
+                      double.parse(heightImage.text.toString());
+                  // Reemplaza el elemento actualizado en la lista newDataBlocks
+                  int indexToUpdate = newDataBlocks
+                      .indexWhere((block) => block.order == orderBlock);
+                  if (indexToUpdate != -1) {
+                    newDataBlocks[indexToUpdate] = blockPage;
+                  }
+
+                  // Actualiza dataBlocks con la lista newDataBlocks
+                  dataBlocks.assignAll(newDataBlocks);
+                  Get.back();
+                },
                 description: "Guardar cambios",
+                paddingVertical: 10,
                 fontWeightDescription: FontWeight.normal,
                 color: PRIMARY,
                 icon: const Icon(
@@ -329,7 +380,49 @@ class EditorTestController extends GetxController {
     );
   }
 
-  Future<Map<String, dynamic>> tomarFoto() async {
+  showDialogDeleteBlock(int order) async {
+    Get.dialog(
+      AlertDialog(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ), // Ajusta el radio de las esquinas
+        ),
+        backgroundColor: Colors.white,
+        title: const Text(
+          'Foto',
+          style: TextStyle(fontSize: 21),
+        ),
+        content: const Text(
+          '¿Está seguro que desea eliminar este bloque?',
+          style: TextStyle(
+            fontSize: 16,
+            color: GREY_HARD,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Get.back(); // Cerrar el modal
+            },
+            child: const Text('NO'),
+          ),
+          TextButton(
+            onPressed: () async {
+              if (order - 1 >= 0 && order - 1 < dataBlocks.length) {
+                dataBlocks.removeAt(order - 1);
+              }
+              Get.back();
+              Get.back();
+            },
+            child: const Text('SI'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<Map<String, dynamic>> takePhoto() async {
     if (await _pedirPermisoCamara()) {
       final XFile? imagen = await picker.pickImage(
         maxWidth: 1920,
@@ -351,7 +444,7 @@ class EditorTestController extends GetxController {
     return {'imagePath': "", 'imageBase64': "", 'imageName': ""};
   }
 
-  Future<Map<String, dynamic>> abrirGaleria(BuildContext context) async {
+  Future<Map<String, dynamic>> openGallery(BuildContext context) async {
     if (await _pedirPermisoGaleria()) {
       final XFile? imagen = await picker.pickImage(
         maxWidth: 1920,

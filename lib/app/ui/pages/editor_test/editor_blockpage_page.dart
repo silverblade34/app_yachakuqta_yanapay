@@ -1,10 +1,10 @@
-import 'package:app_yachakuqta_yanapay/app/controllers/editor_test_controller.dart';
+import 'package:app_yachakuqta_yanapay/app/controllers/editor_blockpage_controller.dart';
 import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class EditorTestPage extends GetView<EditorTestController> {
-  const EditorTestPage({super.key});
+class EditorBlockPagePage extends GetView<EditorBlockPageController> {
+  const EditorBlockPagePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +16,23 @@ class EditorTestPage extends GetView<EditorTestController> {
         ),
         elevation: 4,
         actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 10),
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-                color: WHITE, borderRadius: BorderRadius.circular(8)),
-            child: const Icon(
-              Icons.check,
-              color: Colors.green,
+          InkWell(
+            child: Container(
+              padding: const EdgeInsets.all(5),
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(20)),
+              child: const Icon(
+                Icons.check,
+                color: GREY_HARD,
+              ),
             ),
+            onTap: () {
+              controller.saveBlockPages();
+            },
           ),
+          const SizedBox(
+            width: 10,
+          )
         ],
       ),
       body: Column(
@@ -37,6 +44,7 @@ class EditorTestPage extends GetView<EditorTestController> {
               decoration: const InputDecoration(
                 hintText: 'Insertar título',
                 border: InputBorder.none,
+                contentPadding: EdgeInsets.symmetric(vertical: 0),
               ),
               style: const TextStyle(
                 fontWeight: FontWeight.w700,
