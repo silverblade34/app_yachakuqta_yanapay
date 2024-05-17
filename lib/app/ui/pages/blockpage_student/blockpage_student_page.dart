@@ -21,10 +21,15 @@ class BlockPageStudentPage extends GetView<BlockPageStudentController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Contenido Guardado:',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: controller.dataBlockPage.blocks.length,
+                  itemBuilder: (context, index) {
+                    var element = controller.dataBlockPage.blocks[index];
+                    return controller.buildBlockWidget(element, context);
+                  },
+                ),
+              )
             ],
           ),
         ),

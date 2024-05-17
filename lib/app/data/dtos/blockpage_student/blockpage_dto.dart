@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:get/get.dart';
+
 BlockPageDto blockPageDtoFromJson(String str) => BlockPageDto.fromJson(json.decode(str));
 
 String blockPageDtoToJson(BlockPageDto data) => json.encode(data.toJson());
@@ -113,8 +115,8 @@ class Block {
 }
 
 class Detail {
-    int width;
-    int height;
+    double width;
+    double height;
     String id;
 
     Detail({
@@ -124,8 +126,8 @@ class Detail {
     });
 
     factory Detail.fromJson(Map<String, dynamic> json) => Detail(
-        width: json["width"],
-        height: json["height"],
+        width:  json["width"].toDouble(),
+        height: json["height"].toDouble(),
         id: json["_id"],
     );
 
