@@ -17,6 +17,7 @@ class EditorBlockPagePage extends GetView<EditorBlockPageController> {
         elevation: 4,
         actions: [
           InkWell(
+            borderRadius: BorderRadius.circular(20),
             child: Container(
               padding: const EdgeInsets.all(5),
               decoration:
@@ -38,7 +39,7 @@ class EditorBlockPagePage extends GetView<EditorBlockPageController> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.only(right: 10, left: 45),
             child: TextField(
               controller: controller.titleBlockPage,
               decoration: const InputDecoration(
@@ -92,7 +93,9 @@ class EditorBlockPagePage extends GetView<EditorBlockPageController> {
               },
             ),
           ),
-          const SizedBox(height: 20,)
+          const SizedBox(
+            height: 20,
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(

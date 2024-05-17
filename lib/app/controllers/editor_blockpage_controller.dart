@@ -2,6 +2,7 @@ import 'package:app_yachakuqta_yanapay/app/data/models/block_editor_model.dart';
 import 'package:app_yachakuqta_yanapay/app/data/repositories/editor_blockpage_repository.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/global_widgets/button_icon_column.dart';
 import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
+import 'package:flutter/widgets.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
@@ -27,18 +28,22 @@ class EditorBlockPageController extends GetxController {
   }
 
   saveBlockPages() async {
-    EasyLoading.show(status: 'Cargando...');
-    try {
-      final validate = await editorBlockPageRepository.createBlockPage(
-          1, titleBlockPage.text, "663d6ead0da9be8fe660e638", dataBlocks);
-      EasyLoading.showSuccess(validate["message"]);
-    } catch (error) {
+    if (titleBlockPage.text != "") {
+      EasyLoading.show(status: 'Cargando...');
       try {
-        String errorMessage = error.toString().split(":")[1].trim();
-        EasyLoading.showInfo(errorMessage);
-      } catch (e) {
-        EasyLoading.showInfo(error.toString());
+        final validate = await editorBlockPageRepository.createBlockPage(
+            1, titleBlockPage.text, "663d6ead0da9be8fe660e638", dataBlocks);
+        EasyLoading.showSuccess(validate["message"]);
+      } catch (error) {
+        try {
+          String errorMessage = error.toString().split(":")[1].trim();
+          EasyLoading.showInfo(errorMessage);
+        } catch (e) {
+          EasyLoading.showInfo(error.toString());
+        }
       }
+    } else {
+      EasyLoading.showInfo("Debe ingresar el titulo de la pagina");
     }
   }
 
@@ -130,60 +135,176 @@ class EditorBlockPageController extends GetxController {
     switch (block.type) {
       case 'TEXTO':
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: TextField(
-            controller: block.controller,
-            decoration: const InputDecoration(
-              hintText: 'Ingresar texto',
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(vertical: 0),
-            ),
-            style: const TextStyle(
-              fontSize: 14.0,
-            ),
-            textAlign: TextAlign.justify,
-            maxLines:
-                null, // Permite que el campo de texto se expanda dinámicamente
-            textInputAction: TextInputAction.newline,
+          padding: const EdgeInsets.only(right: 10.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              PopupMenuButton<String>(
+                icon: const Icon(
+                  Icons.more_vert,
+                  color: GREY_EXTRA_LIGHT,
+                ),
+                onSelected: (String value) {
+                  if (value == 'edit') {
+                    // Acción para editar
+                    print("EDITAR");
+                  } else if (value == 'delete') {
+                    int index = block.order - 1;
+                    if (index >= 0 && index < dataBlocks.length) {
+                      dataBlocks.removeAt(index);
+                    }
+                  }
+                },
+                itemBuilder: (BuildContext context) {
+                  return [
+                    const PopupMenuItem<String>(
+                      value: 'edit',
+                      child: Text('Editar'),
+                    ),
+                    const PopupMenuItem<String>(
+                      value: 'delete',
+                      child: Text('Eliminar'),
+                    ),
+                  ];
+                },
+              ),
+              const SizedBox(
+                width: 4,
+              ),
+              Expanded(
+                child: TextField(
+                  controller: block.controller,
+                  decoration: const InputDecoration(
+                    hintText: 'Ingresar texto',
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(vertical: 0),
+                  ),
+                  style: const TextStyle(
+                    fontSize: 14.0,
+                  ),
+                  textAlign: TextAlign.justify,
+                  maxLines:
+                      null, // Permite que el campo de texto se expanda dinámicamente
+                  textInputAction: TextInputAction.newline,
+                ),
+              ),
+            ],
           ),
         );
       case 'SUBTITULO':
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: TextField(
-            controller: block.controller,
-            decoration: const InputDecoration(
-              hintText: 'Ingresar subtítulo',
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(vertical: 0),
-            ),
-            style: const TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.bold,
-              color: GREY_LIGHT,
-            ),
-            maxLines:
-                null, // Permite que el campo de texto se expanda dinámicamente
-            textInputAction: TextInputAction.newline,
+          padding: const EdgeInsets.only(right: 10.0, left: 3),
+          child: Row(
+            children: [
+              PopupMenuButton<String>(
+                icon: const Icon(
+                  Icons.more_vert,
+                  color: GREY_EXTRA_LIGHT,
+                ),
+                onSelected: (String value) {
+                  if (value == 'edit') {
+                    // Acción para editar
+                    print("EDITAR");
+                  } else if (value == 'delete') {
+                    // Acción para eliminar
+                    int index = block.order - 1;
+                    if (index >= 0 && index < dataBlocks.length) {
+                      dataBlocks.removeAt(index);
+                    }
+                  }
+                },
+                itemBuilder: (BuildContext context) {
+                  return [
+                    const PopupMenuItem<String>(
+                      value: 'edit',
+                      child: Text('Editar'),
+                    ),
+                    const PopupMenuItem<String>(
+                      value: 'delete',
+                      child: Text('Eliminar'),
+                    ),
+                  ];
+                },
+              ),
+              const SizedBox(
+                width: 4,
+              ),
+              Expanded(
+                child: TextField(
+                  controller: block.controller,
+                  decoration: const InputDecoration(
+                    hintText: 'Ingresar subtítulo',
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(vertical: 0),
+                  ),
+                  style: const TextStyle(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.bold,
+                    color: GREY_LIGHT,
+                  ),
+                  maxLines:
+                      null, // Permite que el campo de texto se expanda dinámicamente
+                  textInputAction: TextInputAction.newline,
+                ),
+              ),
+            ],
           ),
         );
       case 'TEXTO_SUBRAYADO':
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: TextField(
-            controller: block.controller,
-            decoration: const InputDecoration(
-              hintText: 'Ingresar texto subrayado',
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(vertical: 0),
-            ),
-            style: const TextStyle(
-              fontSize: 14.0,
-              decoration: TextDecoration.underline,
-            ),
-            maxLines:
-                null, // Permite que el campo de texto se expanda dinámicamente
-            textInputAction: TextInputAction.newline,
+          padding: const EdgeInsets.only(right: 10.0, left: 3),
+          child: Row(
+            children: [
+              PopupMenuButton<String>(
+                icon: const Icon(
+                  Icons.more_vert,
+                  color: GREY_EXTRA_LIGHT,
+                ),
+                onSelected: (String value) {
+                  if (value == 'edit') {
+                    // Acción para editar
+                    print("EDITAR");
+                  } else if (value == 'delete') {
+                    int index = block.order - 1;
+                    if (index >= 0 && index < dataBlocks.length) {
+                      dataBlocks.removeAt(index);
+                    }
+                  }
+                },
+                itemBuilder: (BuildContext context) {
+                  return [
+                    const PopupMenuItem<String>(
+                      value: 'edit',
+                      child: Text('Editar'),
+                    ),
+                    const PopupMenuItem<String>(
+                      value: 'delete',
+                      child: Text('Eliminar'),
+                    ),
+                  ];
+                },
+              ),
+              const SizedBox(
+                width: 4,
+              ),
+              Expanded(
+                child: TextField(
+                  controller: block.controller,
+                  decoration: const InputDecoration(
+                    hintText: 'Ingresar texto subrayado',
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(vertical: 0),
+                  ),
+                  style: const TextStyle(
+                    fontSize: 14.0,
+                    decoration: TextDecoration.underline,
+                  ),
+                  maxLines:
+                      null, // Permite que el campo de texto se expanda dinámicamente
+                  textInputAction: TextInputAction.newline,
+                ),
+              ),
+            ],
           ),
         );
       case 'IMAGEN':
