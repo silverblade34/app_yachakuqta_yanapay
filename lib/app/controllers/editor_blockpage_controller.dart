@@ -2,7 +2,6 @@ import 'package:app_yachakuqta_yanapay/app/data/models/block_editor_model.dart';
 import 'package:app_yachakuqta_yanapay/app/data/repositories/editor_blockpage_repository.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/global_widgets/button_icon_column.dart';
 import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
-import 'package:flutter/widgets.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
@@ -195,6 +194,7 @@ class EditorBlockPageController extends GetxController {
         return Padding(
           padding: const EdgeInsets.only(right: 10.0, left: 3),
           child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               PopupMenuButton<String>(
                 icon: const Icon(
@@ -254,6 +254,7 @@ class EditorBlockPageController extends GetxController {
         return Padding(
           padding: const EdgeInsets.only(right: 10.0, left: 3),
           child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               PopupMenuButton<String>(
                 icon: const Icon(

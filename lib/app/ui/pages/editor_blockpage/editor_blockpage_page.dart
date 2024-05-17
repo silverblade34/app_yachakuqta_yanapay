@@ -1,4 +1,5 @@
 import 'package:app_yachakuqta_yanapay/app/controllers/editor_blockpage_controller.dart';
+import 'package:app_yachakuqta_yanapay/app/ui/global_widgets/navigation_drawer.dart';
 import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,10 +37,11 @@ class EditorBlockPagePage extends GetView<EditorBlockPageController> {
           )
         ],
       ),
+      drawer: const NavigationDrawerLayout(),
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(right: 10, left: 45),
+            padding: const EdgeInsets.only(right: 10, left: 45, top: 10),
             child: TextField(
               controller: controller.titleBlockPage,
               decoration: const InputDecoration(

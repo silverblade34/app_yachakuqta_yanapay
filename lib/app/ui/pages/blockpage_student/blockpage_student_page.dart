@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'package:app_yachakuqta_yanapay/app/controllers/blockpage_student_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -53,9 +55,9 @@ class BlockPageStudentPage extends GetView<BlockPageStudentController> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print("-----------------------------1");
+          controller.goToNext();
         },
-        child: const Icon(Icons.skip_next_outlined),
+        child: controller.statusIconNext == true ? const Icon(Icons.skip_next_outlined): const Icon(Icons.smart_toy_outlined),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

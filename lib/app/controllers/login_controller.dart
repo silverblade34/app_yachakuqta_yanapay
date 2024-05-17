@@ -36,7 +36,8 @@ class LoginController extends GetxController {
         String role = validate.data.role;
         constructMenu(role);
 
-        String authToken = mainController.generateToken(validate.data.username, role);
+        String authToken =
+            mainController.generateToken(validate.data.username, role);
 
         box.write('authTokenMobile', authToken);
         box.write('name', validate.data.name);
@@ -46,9 +47,9 @@ class LoginController extends GetxController {
         if (role == "STUDENT") {
           Get.offAllNamed("/home_student");
         } else if (role == "TEACHER") {
-          Get.offAllNamed("/home_teacher");
+          Get.offAllNamed("/editor_blockpage");
         } else if (role == "ADMINISTRATOR") {
-          Get.offAllNamed("/home_administrator");
+          Get.offAllNamed("/editor_blockpage");
         }
       } catch (error) {
         try {

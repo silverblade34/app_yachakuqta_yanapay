@@ -1,20 +1,42 @@
 import 'package:app_yachakuqta_yanapay/app/data/dtos/blockpage_student/blockpage_dto.dart';
 import 'package:app_yachakuqta_yanapay/app/data/dtos/syllabus_student/syllabus_blocks_dto.dart';
 import 'package:app_yachakuqta_yanapay/app/data/repositories/blockpage_student_repository.dart';
+import 'package:app_yachakuqta_yanapay/app/utils/global_utils.dart';
 import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:io';
 
 class BlockPageStudentController extends GetxController {
   DataBlockPage dataBlockPage = Get.arguments["dataBlockPage"];
   DatumSyllabusBlock dataSyllabusBlock = Get.arguments["dataSyllabusBlock"];
   BlockPageStudentRepository blockPageStudentRepository =
       BlockPageStudentRepository();
+  RxBool statusIconNext = true.obs;
 
   @override
   void onInit() async {
     super.onInit();
+    int lengthBlockPages = dataSyllabusBlock.blockPages.length;
+    if (dataBlockPage.page == lengthBlockPages) {
+      statusIconNext.value = false;
+    }
+  }
+
+  goToNext() async {
+    if (statusIconNext.value) {
+      BlockPageResume blockPage = dataSyllabusBlock.blockPages.firstWhere(
+        (block) => block.page == dataBlockPage.page + 1,
+      );
+      final validate =
+          await blockPageStudentRepository.findOneBlockPage(blockPage.id);
+      DataBlockPage newDataBlockPage = validate.data;
+      Get.toNamed("/blockpage_student", arguments: {
+        "dataBlockPage": newDataBlockPage,
+        "dataSyllabusBlock": dataSyllabusBlock
+      });
+    } else {
+      print("------------EMPEZAR EVALUACION------------");
+    }
   }
 
   Widget buildBlockWidget(Block block, BuildContext context) {
@@ -59,20 +81,11 @@ class BlockPageStudentController extends GetxController {
       case 'IMAGEN':
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: block.content == ""
-              ? Image.network(
-                  'https://cdn.pixabay.com/photo/2017/01/25/17/35/picture-2008484_960_720.png',
-                  width: block.details[0].width,
-                  height: block.details[0].height,
-                )
-              : Image(
-                  image: Image.file(
-                    File(block.content),
-                  ).image,
-                  width: block.details[0].width,
-                  height: block.details[0].height,
-                  fit: BoxFit.contain,
-                ),
+          child: Image.network(
+            '$urlImages$versionService$methodGetImageCourse${block.nameImage}',
+            width: block.details[0].width,
+            height: block.details[0].height,
+          ),
         );
       default:
         return const SizedBox(); // Widget por defecto si el tipo de bloque no coincide
