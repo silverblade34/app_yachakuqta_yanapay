@@ -23,10 +23,27 @@ class BlockPageStudentPage extends GetView<BlockPageStudentController> {
             children: [
               Expanded(
                 child: ListView.builder(
-                  itemCount: controller.dataBlockPage.blocks.length,
+                  itemCount: controller.dataBlockPage.blocks.length +
+                      1, // Añadir 1 al recuento de elementos
                   itemBuilder: (context, index) {
-                    var element = controller.dataBlockPage.blocks[index];
-                    return controller.buildBlockWidget(element, context);
+                    if (index == 0) {
+                      // Retornar un Text widget en la primera posición
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          controller.dataBlockPage.title,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 15.0,
+                          ),
+                          textAlign: TextAlign.justify,
+                        ),
+                      );
+                    } else {
+                      // Ajustar el índice para obtener el elemento correcto de la lista
+                      var element = controller.dataBlockPage.blocks[index - 1];
+                      return controller.buildBlockWidget(element, context);
+                    }
                   },
                 ),
               )
@@ -34,6 +51,13 @@ class BlockPageStudentPage extends GetView<BlockPageStudentController> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print("-----------------------------1");
+        },
+        child: const Icon(Icons.skip_next_outlined),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

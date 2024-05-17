@@ -4,8 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:get/get.dart';
-
 BlockPageDto blockPageDtoFromJson(String str) => BlockPageDto.fromJson(json.decode(str));
 
 String blockPageDtoToJson(BlockPageDto data) => json.encode(data.toJson());

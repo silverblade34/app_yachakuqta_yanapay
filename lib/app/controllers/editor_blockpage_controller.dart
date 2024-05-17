@@ -5,6 +5,7 @@ import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
@@ -448,9 +449,10 @@ class EditorBlockPageController extends GetxController {
         source: ImageSource.camera,
       );
       if (imagen != null) {
-        String documentoBase64String = await convertImageBase64(imagen);
+        CroppedFile? croppedFile = await cropImages(imagen);
+        String documentoBase64String = await convertImageBase64(croppedFile);
         return {
-          'imageName': imagen.name,
+          'imageName': croppedFile.path.split('/').last,
           'imagePath': imagen.path,
           'imageBase64': documentoBase64String,
         };
@@ -470,10 +472,12 @@ class EditorBlockPageController extends GetxController {
         source: ImageSource.gallery,
       );
       if (imagen != null) {
-        String documentoBase64String = await convertImageBase64(imagen);
+        CroppedFile? croppedFile = await cropImages(imagen);
+
+        String documentoBase64String = await convertImageBase64(croppedFile);
         return {
-          'imageName': imagen.name,
-          'imagePath': imagen.path,
+          'imageName': croppedFile.path.split('/').last,
+          'imagePath': croppedFile.path,
           'imageBase64': documentoBase64String,
         };
       }
@@ -483,7 +487,31 @@ class EditorBlockPageController extends GetxController {
     return {'imagePath': "", 'imageBase64': "", 'imageName': ""};
   }
 
-  Future<String> convertImageBase64(XFile imagen) async {
+  Future<CroppedFile> cropImages(XFile image) async {
+    CroppedFile? croppedFile = await ImageCropper().cropImage(
+      sourcePath: image.path,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio16x9
+      ],
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Recortar Imagen',
+          toolbarColor: TERTIARY,
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        )
+      ],
+    );
+
+    return croppedFile!;
+  }
+
+  Future<String> convertImageBase64(CroppedFile imagen) async {
     List<int> fileBytes = await imagen.readAsBytes();
     return base64Encode(fileBytes);
   }

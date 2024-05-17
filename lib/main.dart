@@ -6,12 +6,13 @@ import 'package:get_storage/get_storage.dart';
 import 'package:get/get.dart';
 
 void main() async {
-    await GetStorage.init();
+  WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   runApp(
-     GetMaterialApp(
+    GetMaterialApp(
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.fadeIn,
-      initialRoute: Routes.INITIAL,
+      initialRoute: Routes.EDITOR_BLOCKPAGE,
       getPages: AppPages.pages,
       theme: appThemeData,
       builder: (context, widget) {
