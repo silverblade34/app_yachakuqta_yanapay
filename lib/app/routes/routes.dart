@@ -12,4 +12,5 @@ abstract class Routes {
   static const EDITOR_SYLLABUS = '/editor_syllabus';
   static const BLOCKPAGE_STUDENT = '/blockpage_student';
   static const EDITOR_BLOCKPAGE = '/editor_blockpage';
+  static const BLOCKPAGE_FORO = '/blockpage_foro';
 }

@@ -1,6 +1,7 @@
 import 'package:app_yachakuqta_yanapay/app/controllers/syllabus_student_controller.dart';
 import 'package:app_yachakuqta_yanapay/app/data/dtos/syllabus_student/syllabus_blocks_dto.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/syllabus_student/widgets/expansion_card.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,7 +10,6 @@ class SyllabusStudentPage extends GetView<SyllabusStudentController> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -39,13 +39,24 @@ class SyllabusStudentPage extends GetView<SyllabusStudentController> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          controller.showSyllabusMenuOptions(context);
-        },
-        child: const Icon(Icons.widgets),
+      floatingActionButton: SpeedDial(
+        icon: Icons.widgets_outlined,
+        activeIcon: Icons.close,
+        children: [
+          SpeedDialChild(
+              child: const Icon(Icons.live_help_outlined),
+              label: "Foro de la unidad",
+              onTap: () {
+                print("--------------------------------1");
+              }),
+          SpeedDialChild(
+              child: const Icon(Icons.smart_toy_outlined),
+              label: "Desafio final",
+              onTap: () {
+                print("--------------------------------2");
+              }),
+        ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
