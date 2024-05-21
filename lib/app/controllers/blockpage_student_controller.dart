@@ -4,10 +4,18 @@ import 'package:app_yachakuqta_yanapay/app/data/repositories/blockpage_student_r
 import 'package:app_yachakuqta_yanapay/app/utils/global_utils.dart';
 import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 class BlockPageStudentController extends GetxController {
-  DataBlockPage dataBlockPage = Get.arguments["dataBlockPage"];
+  Rx<DataBlockPage> dataBlockPage = Rx(DataBlockPage(
+      id: "0",
+      page: 0,
+      title: "",
+      syllabusBlockId: "",
+      blocks: [],
+      createdAt: DateTime.now(),
+      v: 0));
   DatumSyllabusBlock dataSyllabusBlock = Get.arguments["dataSyllabusBlock"];
   BlockPageStudentRepository blockPageStudentRepository =
       BlockPageStudentRepository();
@@ -16,26 +24,90 @@ class BlockPageStudentController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    int lengthBlockPages = dataSyllabusBlock.blockPages.length;
-    if (dataBlockPage.page == lengthBlockPages) {
-      statusIconNext.value = false;
-    }
+    dataBlockPage.value = Get.arguments["dataBlockPage"];
+    validateStatusNext(dataBlockPage.value.page);
   }
 
   goToNext() async {
     if (statusIconNext.value) {
       BlockPageResume blockPage = dataSyllabusBlock.blockPages.firstWhere(
-        (block) => block.page == dataBlockPage.page + 1,
+        (block) => block.page == dataBlockPage.value.page + 1,
       );
+
       final validate =
           await blockPageStudentRepository.findOneBlockPage(blockPage.id);
       DataBlockPage newDataBlockPage = validate.data;
-      Get.toNamed("/blockpage_student", arguments: {
-        "dataBlockPage": newDataBlockPage,
-        "dataSyllabusBlock": dataSyllabusBlock
-      });
+      dataBlockPage.value = newDataBlockPage;
+      validateStatusNext(newDataBlockPage.page);
     } else {
-      print("------------EMPEZAR EVALUACION------------");
+      showDialogStartExam();
+    }
+  }
+
+  showDialogStartExam() async {
+    Get.dialog(
+      AlertDialog(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+        ),
+        backgroundColor: Colors.white,
+        title: const Text(
+          '¿Listo para un desafío?',
+          style: TextStyle(
+            fontSize: 21,
+            fontWeight: FontWeight.bold,
+            color: TERTIARY,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        content: RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            children: [
+              const TextSpan(
+                text: '¡Comprueba tus habilidades en el tema ',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+              ),
+              TextSpan(
+                text: '"${dataSyllabusBlock.title}"!',
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: GREY_LIGHT,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Get.back();
+            },
+            child: const Text('NO'),
+          ),
+          TextButton(
+            onPressed: () {
+              EasyLoading.show(status: 'Cargando... ⏳');
+              Get.back();
+              EasyLoading.dismiss();
+            },
+            child: const Text('SÍ'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  validateStatusNext(int page) {
+    int lengthBlockPages = dataSyllabusBlock.blockPages.length;
+    if (page == lengthBlockPages) {
+      statusIconNext.value = false;
     }
   }
 

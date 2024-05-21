@@ -75,7 +75,7 @@ class CourseStudentPage extends GetView<CourseStudentController> {
                 height: 15,
               ),
               SizedBox(
-                height: screenHeight - (screenHeight * 0.35),
+                height: screenHeight - (screenHeight * 0.37),
                 child: ListView.builder(
                   itemCount: controller.courseData.syllabuses.length,
                   itemBuilder: (context, index) {

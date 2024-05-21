@@ -9,11 +9,12 @@ class SyllabusStudentPage extends GetView<SyllabusStudentController> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "UNIDAD 1 - NÚMEROS OPERACIONES",
-          style: TextStyle(fontSize: 17),
+        title: Text(
+          "${controller.syllabusItem.order} - ${controller.syllabusItem.title}",
+          style: const TextStyle(fontSize: 17),
         ),
         elevation: 4,
         leading: IconButton(
@@ -38,6 +39,13 @@ class SyllabusStudentPage extends GetView<SyllabusStudentController> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          controller.showSyllabusMenuOptions(context);
+        },
+        child: const Icon(Icons.widgets),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

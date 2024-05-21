@@ -1,7 +1,7 @@
 import 'package:app_yachakuqta_yanapay/app/controllers/home_student_controller.dart';
 import 'package:app_yachakuqta_yanapay/app/data/dtos/home_student/course_dto.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/global_widgets/navigation_drawer.dart';
-import 'package:app_yachakuqta_yanapay/app/ui/pages/home_student/widgets/card_course.dart';
+import 'package:app_yachakuqta_yanapay/app/ui/pages/home_student/widgets/card_course_stack.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +14,7 @@ class HomeStudentPage extends GetView<HomeStudentController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'HOME',
+          'CURSOS',
           style: TextStyle(fontSize: 17),
         ),
         elevation: 4,
@@ -29,13 +29,21 @@ class HomeStudentPage extends GetView<HomeStudentController> {
               onRefresh: () async {
                 await controller.getFindAllCourses();
               },
-              child: ListView.builder(
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 2 / 2,
+                ),
                 itemCount: controller.dataCourses.length,
                 itemBuilder: (context, index) {
                   Course item = controller.dataCourses[index];
-                  return CardCourse(
-                    item: item,
-                    homeStudentCL: controller,
+                  return InkWell(
+                    child: CardCourseStack(item: item),
+                    onTap: () {
+                      controller.getToCourseDetail(item);
+                    },
                   );
                 },
               ),

@@ -1,5 +1,3 @@
-// ignore_for_file: unrelated_type_equality_checks
-
 import 'package:app_yachakuqta_yanapay/app/controllers/blockpage_student_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,44 +18,49 @@ class BlockPageStudentPage extends GetView<BlockPageStudentController> {
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  itemCount: controller.dataBlockPage.blocks.length +
-                      1, // Añadir 1 al recuento de elementos
-                  itemBuilder: (context, index) {
-                    if (index == 0) {
-                      // Retornar un Text widget en la primera posición
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text(
-                          controller.dataBlockPage.title,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 15.0,
+          child: Obx(
+            () => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: controller.dataBlockPage.value.blocks.length + 1,
+                    itemBuilder: (context, index) {
+                      if (index == 0) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Text(
+                            controller.dataBlockPage.value.title,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 15.0,
+                            ),
+                            textAlign: TextAlign.justify,
                           ),
-                          textAlign: TextAlign.justify,
-                        ),
-                      );
-                    } else {
-                      // Ajustar el índice para obtener el elemento correcto de la lista
-                      var element = controller.dataBlockPage.blocks[index - 1];
-                      return controller.buildBlockWidget(element, context);
-                    }
-                  },
-                ),
-              )
-            ],
+                        );
+                      } else {
+                        // Ajustar el índice para obtener el elemento correcto de la lista
+                        var element =
+                            controller.dataBlockPage.value.blocks[index - 1];
+                        return controller.buildBlockWidget(element, context);
+                      }
+                    },
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          controller.goToNext();
-        },
-        child: controller.statusIconNext == true ? const Icon(Icons.skip_next_outlined): const Icon(Icons.smart_toy_outlined),
+      floatingActionButton: Obx(
+        () => FloatingActionButton(
+          onPressed: () {
+            controller.goToNext();
+          },
+          child: controller.statusIconNext.value == true
+              ? const Icon(Icons.skip_next_outlined)
+              : const Icon(Icons.smart_toy_outlined),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

@@ -23,7 +23,7 @@ Container ExpansionCard(
       leading: const CircleAvatar(
         backgroundColor: TERTIARY,
         child: Icon(
-          Icons.category_outlined,
+          Icons.lan_outlined,
           color: WHITE,
         ),
       ),
@@ -58,7 +58,7 @@ Container ExpansionCard(
                   return ListTile(
                     title: Text(
                       itemBlockPage.title,
-                      style: const TextStyle(fontSize: 15),
+                      style: const TextStyle(fontSize: 15, color: GREY_LIGHT),
                     ),
                     trailing: const Icon(Icons.play_arrow),
                     onTap: () {
@@ -78,7 +78,7 @@ Container ExpansionCard(
             TextButton(
               style: flatButtonStyle,
               onPressed: () {
-                print("INICIAR");
+                controller.goToBlockPage( item.blockPages[0].id,item);
               },
               child: const Column(
                 children: <Widget>[
@@ -93,22 +93,22 @@ Container ExpansionCard(
             TextButton(
               style: flatButtonStyle,
               onPressed: () {
-                print("VIDEOS");
+                print("FORO");
               },
               child: const Column(
                 children: <Widget>[
-                  Icon(Icons.video_library_outlined),
+                  Icon(Icons.live_help_outlined),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 2.0),
                   ),
-                  Text('Videos'),
+                  Text('Foro'),
                 ],
               ),
             ),
             TextButton(
               style: flatButtonStyle,
               onPressed: () {
-                print("RETOS");
+               controller.showDialogStartExam(item);
               },
               child: const Column(
                 children: <Widget>[
@@ -116,7 +116,7 @@ Container ExpansionCard(
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 2.0),
                   ),
-                  Text('Reto'),
+                  Text('Desafio'),
                 ],
               ),
             ),

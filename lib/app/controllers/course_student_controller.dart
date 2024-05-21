@@ -6,6 +6,6 @@ class CourseStudentController extends GetxController {
   Course courseData = Get.arguments;
 
   goToSyllabusStudent(Syllabus item) {
-    Get.toNamed("/syllabus_student", arguments: item.id);
+    Get.toNamed("/syllabus_student", arguments: item);
   }
 }
