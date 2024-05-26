@@ -17,7 +17,7 @@ const Color TERTIARY = Color(0xFFA2A629);
 const Color TERTIARY_LIGHT = Color.fromARGB(255, 217, 219, 137);
 const Color OTHER = Color(0xFFD93DA2);
 const Color BACKGROUND_LIGHT_CREAM = Color.fromARGB(251, 240, 232, 208);
-const Color BACKGROUND_LIGHT = Color.fromARGB(255, 248, 248, 248);
+const Color BACKGROUND_LIGHT = Color.fromARGB(255, 241, 241, 241);
 
 const Color GREY_HARD = Color.fromARGB(255, 47, 55, 71);
 const Color GREY_LIGHT = Color.fromARGB(255, 100, 100, 100);
