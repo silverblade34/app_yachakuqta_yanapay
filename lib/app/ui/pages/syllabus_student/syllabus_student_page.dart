@@ -1,6 +1,7 @@
 import 'package:app_yachakuqta_yanapay/app/controllers/syllabus_student_controller.dart';
 import 'package:app_yachakuqta_yanapay/app/data/dtos/syllabus_student/syllabus_blocks_dto.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/syllabus_student/widgets/expansion_card.dart';
+import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +15,7 @@ class SyllabusStudentPage extends GetView<SyllabusStudentController> {
       appBar: AppBar(
         title: Text(
           "${controller.syllabusItem.order} - ${controller.syllabusItem.title}",
-          style: const TextStyle(fontSize: 17),
+          style: const TextStyle(fontSize: pageTitleGlobal),
         ),
         elevation: 4,
         leading: IconButton(

@@ -32,7 +32,7 @@ class LoginController extends GetxController {
       EasyLoading.show(status: 'Cargando...');
       try {
         final validate =
-            await loginRepository.authLogin(username.text, password.text);
+            await loginRepository.authLogin(username.text.trim(), password.text.trim());
         String role = validate.data.role;
         constructMenu(role);
 

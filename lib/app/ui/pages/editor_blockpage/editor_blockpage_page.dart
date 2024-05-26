@@ -13,7 +13,7 @@ class EditorBlockPagePage extends GetView<EditorBlockPageController> {
       appBar: AppBar(
         title: const Text(
           'Crear contenido de pagina',
-          style: TextStyle(fontSize: 17),
+          style: TextStyle(fontSize: pageTitleGlobal),
         ),
         elevation: 4,
         actions: [

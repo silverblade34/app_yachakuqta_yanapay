@@ -26,8 +26,8 @@ class SyllabusStudentController extends GetxController {
 
   getSyllabusBlocks() async {
     try {
-      final validate =
-          await syllabusStudentRepository.findAllSyllabusBlocks(syllabusItem.id);
+      final validate = await syllabusStudentRepository
+          .findAllSyllabusBlocks(syllabusItem.id);
       dataSyllabusBlocks.value = validate.data;
     } catch (error) {
       try {
@@ -51,15 +51,12 @@ class SyllabusStudentController extends GetxController {
               ListTile(
                 leading: const Icon(Icons.live_help_outlined),
                 title: const Text('Foro de la unidad'),
-                onTap: () {
-                 
-                },
+                onTap: () {},
               ),
               ListTile(
                 leading: const Icon(Icons.smart_toy_outlined),
                 title: const Text('Desafio final'),
                 onTap: () {
-                 
                   Navigator.pop(context);
                 },
               ),
@@ -128,6 +125,15 @@ class SyllabusStudentController extends GetxController {
         ],
       ),
     );
+  }
+
+  goToForumSyllabusBlock(DatumSyllabusBlock item) {
+    Get.toNamed("/syllabusblock_forum", arguments: {
+      "syllabusBlockId": item.id,
+      "syllabusBlockName": item.title,
+      "syllabusItem": syllabusItem,
+      "typeForum": "FORUM_SYLLABUS_BLOCK"
+    });
   }
 
   goToBlockPage(

@@ -1,4 +1,3 @@
-import 'package:app_yachakuqta_yanapay/app/bindings/blockpage_foro_binding.dart';
 import 'package:app_yachakuqta_yanapay/app/bindings/blockpage_student_binding.dart';
 import 'package:app_yachakuqta_yanapay/app/bindings/course_student_binding.dart';
 import 'package:app_yachakuqta_yanapay/app/bindings/editor_syllabus_binding.dart';
@@ -8,8 +7,8 @@ import 'package:app_yachakuqta_yanapay/app/bindings/home_student_binding.dart';
 import 'package:app_yachakuqta_yanapay/app/bindings/home_teacher_binding.dart';
 import 'package:app_yachakuqta_yanapay/app/bindings/login_binding.dart';
 import 'package:app_yachakuqta_yanapay/app/bindings/syllabus_student_binding.dart';
+import 'package:app_yachakuqta_yanapay/app/bindings/syllabusblock_forum_binding.dart';
 import 'package:app_yachakuqta_yanapay/app/middlewares/global_middleware.dart';
-import 'package:app_yachakuqta_yanapay/app/ui/pages/blockpage_foro/blockpage_foro_page.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/blockpage_student/blockpage_student_page.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/course_student/course_student_page.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/editor_syllabus/editor_syllabus_page.dart';
@@ -20,6 +19,7 @@ import 'package:app_yachakuqta_yanapay/app/ui/pages/home_teacher/home_teacher_pa
 import 'package:app_yachakuqta_yanapay/app/ui/pages/login/login_page.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/splash/splash_page.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/syllabus_student/syllabus_student_page.dart';
+import 'package:app_yachakuqta_yanapay/app/ui/pages/syllabusblock_forum/syllabusblock_forum_page.dart';
 import 'package:get/get.dart';
 part './routes.dart';
 
@@ -81,9 +81,9 @@ abstract class AppPages {
       binding: EditorBlockPageBinding(),
     ),
     GetPage(
-      name: Routes.BLOCKPAGE_FORO,
-      page: () => const BlockPageForoPage(),
-      binding: BlockPageForoBinding(),
-    )
+      name: Routes.SYLLABUSBLOCK_FORUM,
+      page: () => const SyllabusBlockForumPage(),
+      binding: SyllabusBlockForumBinding(),
+    ),
   ];
 }

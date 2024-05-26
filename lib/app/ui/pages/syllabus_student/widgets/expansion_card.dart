@@ -62,7 +62,7 @@ Container ExpansionCard(
                     ),
                     trailing: const Icon(Icons.play_arrow),
                     onTap: () {
-                      controller.goToBlockPage(itemBlockPage.id,item );
+                      controller.goToBlockPage(itemBlockPage.id, item);
                     },
                   );
                 },
@@ -78,7 +78,7 @@ Container ExpansionCard(
             TextButton(
               style: flatButtonStyle,
               onPressed: () {
-                controller.goToBlockPage( item.blockPages[0].id,item);
+                controller.goToBlockPage(item.blockPages[0].id, item);
               },
               child: const Column(
                 children: <Widget>[
@@ -93,7 +93,7 @@ Container ExpansionCard(
             TextButton(
               style: flatButtonStyle,
               onPressed: () {
-                print("FORO");
+                controller.goToForumSyllabusBlock(item);
               },
               child: const Column(
                 children: <Widget>[
@@ -108,7 +108,7 @@ Container ExpansionCard(
             TextButton(
               style: flatButtonStyle,
               onPressed: () {
-               controller.showDialogStartExam(item);
+                controller.showDialogStartExam(item);
               },
               child: const Column(
                 children: <Widget>[

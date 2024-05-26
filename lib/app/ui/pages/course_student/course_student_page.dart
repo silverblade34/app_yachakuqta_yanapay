@@ -2,6 +2,7 @@ import 'package:app_yachakuqta_yanapay/app/controllers/course_student_controller
 import 'package:app_yachakuqta_yanapay/app/data/dtos/home_student/syllabus_dto.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/course_student/widgets/card_syllabus.dart';
 import 'package:app_yachakuqta_yanapay/app/utils/global_utils.dart';
+import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +17,7 @@ class CourseStudentPage extends GetView<CourseStudentController> {
       appBar: AppBar(
         title: const Text(
           "DETALLE CURSO",
-          style: TextStyle(fontSize: 17),
+          style: TextStyle(fontSize: pageTitleGlobal),
         ),
         elevation: 4,
         leading: IconButton(

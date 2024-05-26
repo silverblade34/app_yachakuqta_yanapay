@@ -2,6 +2,7 @@ import 'package:app_yachakuqta_yanapay/app/controllers/home_student_controller.d
 import 'package:app_yachakuqta_yanapay/app/data/dtos/home_student/course_dto.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/global_widgets/navigation_drawer.dart';
 import 'package:app_yachakuqta_yanapay/app/ui/pages/home_student/widgets/card_course_stack.dart';
+import 'package:app_yachakuqta_yanapay/app/utils/style_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +16,7 @@ class HomeStudentPage extends GetView<HomeStudentController> {
       appBar: AppBar(
         title: const Text(
           'CURSOS',
-          style: TextStyle(fontSize: 17),
+          style: TextStyle(fontSize: pageTitleGlobal),
         ),
         elevation: 4,
       ),
